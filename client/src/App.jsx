@@ -1,34 +1,52 @@
-import {Routes, Route, Navigate} from "react-router-dom"
-import Chat from "./pages/Chat"
-import Register from "./pages/Register"
-import Login from "./pages/Login"
-import Profile from "./pages/Profile"
-import "bootstrap/dist/css/bootstrap.min.css"
-import {Container } from "react-bootstrap"
-import NavBar from "./components/NavBar"
-import { useContext } from "react"
-import { AuthContext } from "./context/AuthContext"
-import { ChatContextProvider } from "./context/ChatContext"
+import Navbar from "./components/Navbar";
 
+import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/SignUpPage";
+import LoginPage from "./pages/LoginPage";
+import SettingsPage from "./pages/SettingsPage";
+import ProfilePage from "./pages/ProfilePage";
 
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useAuthStore } from "./store/useAuthStore";
+import { useThemeStore } from "./store/useThemeStore";
+import { useEffect } from "react";
 
-function App() {
-  const {user} = useContext(AuthContext);
+import { Loader } from "lucide-react";
+import { Toaster } from "react-hot-toast";
+
+const App = () => {
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
+  const { theme } = useThemeStore();
+
+  console.log({ onlineUsers });
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
+
+  console.log({ authUser });
+
+  if (isCheckingAuth && !authUser)
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <Loader className="size-10 animate-spin" />
+      </div>
+    );
+
   return (
-    <ChatContextProvider user ={user}>
-    <NavBar/>
-    <Container>
-    <Routes>
-      <Route path = "/" element ={user ? <Chat/>: <Login/>}/>
-      <Route path = "/register" element ={user ? <Chat/>:<Register/>}/>
-      <Route path = "/login" element ={user ? <Chat/>: <Login/>}/>
-      <Route path = "/profile" element ={user ? <Profile/>: <Login/>}/>
-      <Route path = "*" element ={<Navigate to="/"/>}/>
-    </Routes>
-    </Container>
-    </ChatContextProvider>
-    
-  )
-}
+    <div data-theme={theme}>
+      <Navbar />
 
-export default App
+      <Routes>
+        <Route path="/" element={authUser ? <HomePage /> : <Navigate to="/login" />} />
+        <Route path="/signup" element={!authUser ? <SignUpPage /> : <Navigate to="/" />} />
+        <Route path="/login" element={!authUser ? <LoginPage /> : <Navigate to="/" />} />
+        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/profile" element={authUser ? <ProfilePage /> : <Navigate to="/login" />} />
+      </Routes>
+
+      <Toaster />
+    </div>
+  );
+};
+export default App;
