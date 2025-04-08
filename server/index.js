@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const userRoute = require("./Routes/userRoute");
-const chatRoute = require("./Routes/chatRoute");
-const messageRoute = require("./Routes/messageRoute");
+const userRoute = require("./Routes/user.route");
+const chatRoute = require("./Routes/chat.route");
+const messageRoute = require("./Routes/message.route");
+const groupChatRoute = require("./Routes/groupChat.route");
 const { Server } = require("socket.io");
 const app = express();
 const { blackbox } = require("@shuddho11288/blackboxai-api");
@@ -14,6 +15,7 @@ app.use(cors());
 app.use("/api/users", userRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
+app.use("/api/group", groupChatRoute);
 
 function removeFirstLine(inputString) {
   const lines = inputString.split("\n");
@@ -50,12 +52,9 @@ const expressServer = app.listen(port, (req, res) => {
 });
 
 mongoose
-  .connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(uri)
   .then(() => console.log("MongoDB connected"))
-  .catch((err) => console.error(err));
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 const io = new Server(expressServer, { cors: process.env.CLIENT_URL });
 var onlineUsers = [];

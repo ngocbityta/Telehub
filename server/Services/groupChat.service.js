@@ -1,4 +1,4 @@
-const GroupChat = require("../models/GroupChat");
+const GroupChat = require("../Models/groupChat.model");
 
 const createGroupChat = async (data) => {
   const group = new GroupChat(data);
