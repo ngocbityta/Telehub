@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const groupChatController = require("../Controllers/groupChat.controller");
-const validate = require("../middlewares/validateRequest");
+const validate = require("../Validators/validateRequest");
 const {
   createGroupChatSchema,
   updateGroupChatSchema,

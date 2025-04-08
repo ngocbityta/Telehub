@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const chatController = require("../Controllers/chat.controller");
-const validate = require("../middlewares/validateRequest");
+const validate = require("../Validators/validateRequest");
 const { createChatSchema } = require("../Validators/chat.validator");
 
 router.post("/", validate(createChatSchema), chatController.createChat);
