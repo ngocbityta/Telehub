@@ -22,16 +22,18 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const user = localStorage.getItem("User");
-    setUser(JSON.parse(user));
-  }, {});
+    if (user) {
+      setUser(JSON.parse(user));
+    }
+  }, []);
 
   const updateRegisterInfo = useCallback((info) => {
     setRegisterInfo(info);
-  });
+  }, []);
 
   const updateLoginInfo = useCallback((info) => {
     setLoginInfo(info);
-  });
+  }, []);
 
   const registerUser = useCallback(
     async (e) => {
@@ -39,15 +41,18 @@ export const AuthContextProvider = ({ children }) => {
 
       setIsRegisterLoading(true);
       setRegisterError(null);
+
       const response = await postRequest(
         `${baseUrl}/users/register`,
         JSON.stringify(registerInfo)
       );
+
       setIsRegisterLoading(false);
 
       if (response.error) {
         return setRegisterError(response);
       }
+
       localStorage.setItem("User", JSON.stringify(response));
       setUser(response);
     },
@@ -65,10 +70,13 @@ export const AuthContextProvider = ({ children }) => {
         `${baseUrl}/users/login`,
         JSON.stringify(loginInfo)
       );
+
       setIsLoginLoading(false);
+
       if (response.error) {
         return setLoginError(response);
       }
+
       localStorage.setItem("User", JSON.stringify(response));
       setUser(response);
     },

@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useCallback } from "react";
 import { baseUrl, getRequest, postRequest } from "../utils/services";
-import { io } from "socket.io-client";
+import { initSocket, getSocket } from "../socket/socket";
+
 export const ChatContext = createContext();
 
 export const ChatContextProvider = ({ children, user }) => {
@@ -21,50 +22,54 @@ export const ChatContextProvider = ({ children, user }) => {
   const [notifications, setNotifications] = useState([]);
   const [allUsers, setAllUsers] = useState([]);
 
-  //initial socket
+  // Initialize socket
   useEffect(() => {
-    const newSocket = io(import.meta.env.VITE_SOCKET_URL);
+    const newSocket = initSocket();
     setSocket(newSocket);
+
     return () => {
       newSocket.disconnect();
     };
   }, [user]);
 
-  // add online users
+  // Add current user to online list
   useEffect(() => {
-    if (socket === null) return;
-    socket.emit("addNewUser", user?._id);
+    const socket = getSocket();
+    if (!socket || !user?._id) return;
+
+    socket.emit("addNewUser", user._id);
+
     socket.on("getOnlineUsers", (res) => {
       setOnlineUsers(res);
     });
+
     return () => {
       socket.off("getOnlineUsers");
     };
-  }, [socket]);
+  }, [socket, user]);
 
-  // send message
+  // Send message
   useEffect(() => {
-    if (socket === null) return;
+    const socket = getSocket();
+    if (!socket || !newMessage) return;
 
     const recipientId = currentChat?.members?.find((id) => id !== user?._id);
 
     socket.emit("sendMessage", { ...newMessage, recipientId });
   }, [newMessage]);
 
-  // receive message
+  // Receive messages and notifications
   useEffect(() => {
-    if (socket === null) return;
+    const socket = getSocket();
+    if (!socket) return;
 
-    socket?.on("newMessage", (res) => {
-      console.log(res);
+    socket.on("newMessage", (res) => {
       if (currentChat?._id !== res.chatId) return;
-
       setMessages((prev) => [...prev, res]);
     });
 
     socket.on("getNotification", (res) => {
       const isChatOpen = currentChat?.members.some((id) => id === res.senderId);
-
       if (isChatOpen) {
         setNotifications((prev) => [{ ...res, isRead: true }, ...prev]);
       } else {
@@ -78,6 +83,7 @@ export const ChatContextProvider = ({ children, user }) => {
     };
   }, [socket, currentChat]);
 
+  // Get all users & determine potential chats
   useEffect(() => {
     const getUsers = async () => {
       const response = await getRequest(`${baseUrl}/users`);
@@ -87,15 +93,13 @@ export const ChatContextProvider = ({ children, user }) => {
       }
 
       const pChats = response.filter((u) => {
-        let isChatCreated = false;
         if (user?._id === u._id) return false;
 
-        if (userChats) {
-          isChatCreated = userChats?.some((chat) => {
-            return chat.members[0] === u._id || chat.members[1] === u._id;
-          });
-          return !isChatCreated;
-        }
+        const isChatCreated = userChats?.some((chat) =>
+          chat.members.includes(u._id)
+        );
+
+        return !isChatCreated;
       });
 
       setPotentialChats(pChats);
@@ -105,13 +109,14 @@ export const ChatContextProvider = ({ children, user }) => {
     getUsers();
   }, [userChats]);
 
+  // Get user chats
   useEffect(() => {
     const getUserChats = async () => {
       if (user?._id) {
         setIsUserChatsLoading(true);
         setUserChatsError(null);
 
-        const response = await getRequest(`${baseUrl}/chats/${user?._id}`);
+        const response = await getRequest(`${baseUrl}/chats/${user._id}`);
 
         setIsUserChatsLoading(false);
         if (response.error) {
@@ -125,11 +130,12 @@ export const ChatContextProvider = ({ children, user }) => {
     getUserChats();
   }, [user, notifications]);
 
+  // Get messages for current chat
   useEffect(() => {
     const getMessages = async () => {
       setIsMessagesLoading(true);
       setMessagesError(null);
-      const url = baseUrl + "/messages/" + currentChat?._id;
+      const url = `${baseUrl}/messages/${currentChat?._id}`;
       const response = await getRequest(url);
 
       setIsMessagesLoading(false);
@@ -139,9 +145,12 @@ export const ChatContextProvider = ({ children, user }) => {
       setMessages(response);
     };
 
-    getMessages();
+    if (currentChat?._id) {
+      getMessages();
+    }
   }, [currentChat]);
 
+  // Send text message logic
   const sendTextMessage = useCallback(
     async (textMessage, sender, currentChatId, setTextmessage) => {
       if (!textMessage) return console.log("Must type something...");
@@ -158,6 +167,7 @@ export const ChatContextProvider = ({ children, user }) => {
       if (response.error) {
         return setSendTextMessageError(response);
       }
+
       setNewMessage(response);
       setMessages((prev) => [...prev, response]);
       setTextmessage("");
@@ -172,11 +182,9 @@ export const ChatContextProvider = ({ children, user }) => {
   const createChat = useCallback(async (firstId, secondId) => {
     const response = await postRequest(
       `${baseUrl}/chats`,
-      JSON.stringify({
-        firstId,
-        secondId,
-      })
+      JSON.stringify({ firstId, secondId })
     );
+
     if (response.error) {
       return console.log("Error creating chat", response);
     }
@@ -185,33 +193,25 @@ export const ChatContextProvider = ({ children, user }) => {
   }, []);
 
   const markAllNotificationsAdRead = useCallback((notifications) => {
-    const mNotifications = notifications.map((n) => {
-      return { ...n, isRead: true };
-    });
+    const mNotifications = notifications.map((n) => ({
+      ...n,
+      isRead: true,
+    }));
 
     setNotifications(mNotifications);
   }, []);
 
   const markNotificationsAdRead = useCallback(
     (n, userChats, user, notifications) => {
-      // find chat to open
       const desireChat = userChats.find((chat) => {
         const chatMembers = [user._id, n.senderId];
-        const isDesiredChat = chat?.members.every((member) => {
-          return chatMembers.includes(member);
-        });
-
-        return isDesiredChat;
+        return chat?.members.every((member) => chatMembers.includes(member));
       });
 
-      // mark notifications as read
-      const mNotifications = notifications.map((el) => {
-        if (n.senderId === el.senderId) {
-          return { ...n, isRead: true };
-        } else {
-          return el;
-        }
-      });
+      const mNotifications = notifications.map((el) =>
+        n.senderId === el.senderId ? { ...n, isRead: true } : el
+      );
+
       updateCurrentChat(desireChat);
       setNotifications(mNotifications);
     },
@@ -220,25 +220,18 @@ export const ChatContextProvider = ({ children, user }) => {
 
   const markThisUserNotificationsAsRead = useCallback(
     (thisUserNotifications, notifications) => {
-      // mark notification as read
       const mNotifications = notifications.map((el) => {
-        var notification;
-
-        thisUserNotifications.forEach((n) => {
-          if (n.senderId === el.senderId) {
-            notification = { ...n, isRead: true };
-          } else {
-            notification = el;
-          }
-        });
-
-        return notification;
+        const matched = thisUserNotifications.find(
+          (n) => n.senderId === el.senderId
+        );
+        return matched ? { ...matched, isRead: true } : el;
       });
 
       setNotifications(mNotifications);
     },
     []
   );
+
   return (
     <ChatContext.Provider
       value={{
