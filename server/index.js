@@ -15,7 +15,7 @@ app.use(cors());
 app.use("/api/users", userRoute);
 app.use("/api/chats", chatRoute);
 app.use("/api/messages", messageRoute);
-app.use("/api/group", groupChatRoute);
+app.use("/api/groups", groupChatRoute);
 
 function removeFirstLine(inputString) {
   const lines = inputString.split("\n");
