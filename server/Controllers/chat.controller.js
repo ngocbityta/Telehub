@@ -1,47 +1,28 @@
-const chatService = require("../Services/chat.service");
+const streamServer = require('../stream');
+var User = require('../models/user.model');
 
-const createChat = async (req, res) => {
-  const { firstId, secondId } = req.body;
+const handleDeleteConversation = async (req, res) => {
+    console.log("hard-deleting conversation");
 
-  try {
-    const chat = await chatService.findChatByMembers(firstId, secondId);
+    const cid = req.params.cid;
+    const filter = { cid: { $eq: cid } };
+    const channel = (await streamServer.queryChannels(filter))[0];
 
-    if (chat) return res.status(200).json(chat);
+    try {
+        await channel.truncate({
+            hard_delete: true,
+            skip_push: false,
+            message: {
+                text: `${req.username} deleted the conversation.`,
+                user_id: req.username
+            }
+        });
+        return res.sendStatus(200);
+    } catch (error) {
+        console.log('Error soft-deleting channel:', error)
+        return res.sendStatus(500);
+    }
+}
 
-    const response = await chatService.createNewChat(firstId, secondId);
-    res.status(200).json(response);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
-  }
-};
 
-const findUserChats = async (req, res) => {
-  const userId = req.params.userId;
-
-  try {
-    const chats = await chatService.findChatsByUser(userId);
-    res.status(200).json(chats);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
-  }
-};
-
-const findChat = async (req, res) => {
-  const { firstId, secondId } = req.params;
-
-  try {
-    const chat = await chatService.findChatExact(firstId, secondId);
-    res.status(200).json(chat);
-  } catch (error) {
-    console.log(error);
-    res.status(500).json(error);
-  }
-};
-
-module.exports = {
-  createChat,
-  findUserChats,
-  findChat,
-};
+module.exports = { handleDeleteConversation }

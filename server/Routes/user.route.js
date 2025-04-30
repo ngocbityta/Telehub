@@ -1,21 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const userController = require("../Controllers/user.controller");
-const validate = require("../Validators/validateRequest");
-const {
-  registerSchema,
-  loginSchema,
-  updateUserSchema,
-} = require("../Validators/user.validator");
+const router = require('express').Router();
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
+const userController = require('../controllers/user.controller');
 
-router.post("/register", validate(registerSchema), userController.registerUser);
-
-router.post("/login", validate(loginSchema), userController.loginUser);
-
-router.get("/", userController.getUser);
-
-router.get("/:userId", userController.findUser);
-
-router.put("/:userId", validate(updateUserSchema), userController.updateUser);
+router.post('/edit', upload.single('image'), userController.handleEditInfo)
+router.post('/change-password', userController.handleChangePassword)
 
 module.exports = router;

@@ -1,39 +1,57 @@
 {
   "name": "client",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
   "dependencies": {
-    "bootstrap": "^5.3.3",
-    "dompurify": "^3.2.1",
-    "moment": "^2.30.1",
-    "react": "^18.3.1",
-    "react-bootstrap": "^2.10.5",
-    "react-dom": "^18.3.1",
-    "react-input-emoji": "^5.9.0",
-    "react-router-dom": "^6.27.0",
-    "socket.io-client": "^4.8.1"
+    "@emoji-mart/data": "^1.1.2",
+    "@emoji-mart/react": "^1.1.1",
+    "@stream-io/video-react-sdk": "^0.6.18",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@tippyjs/react": "^4.2.6",
+    "axios": "^1.6.8",
+    "emoji-mart": "^5.5.2",
+    "jwt-decode": "^4.0.0",
+    "react": "^18.2.0",
+    "react-card-flip": "^1.2.2",
+    "react-confirm-alert": "^3.0.6",
+    "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.13",
+    "react-icons": "^5.1.0",
+    "react-router-dom": "^6.22.3",
+    "react-scripts": "5.0.1",
+    "socket.io-client": "^4.7.5",
+    "stream-chat": "^8.26.0",
+    "stream-chat-react": "^11.15.1"
+  },
+  "scripts": {
+    "start": "set HTTPS=true&&react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@eslint/js": "^9.11.1",
-    "@types/react": "^18.3.10",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react": "^4.3.2",
-    "eslint": "^9.11.1",
-    "eslint-plugin-react": "^7.37.0",
-    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
-    "eslint-plugin-react-refresh": "^0.4.12",
-    "globals": "^15.9.0",
-    "vite": "^5.4.14"
+    "daisyui": "^4.10.2",
+    "tailwindcss": "^3.4.3"
   },
-  "main": "vite.config.js",
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  "proxy": "http://localhost:8080"
 }
