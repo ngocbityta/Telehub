@@ -95,7 +95,7 @@ function Register() {
 
         // if all validation passed
         try {
-            const response = await axios.post('/api/register', { username, password, email });
+            const response = await axios.post('/api/auth/register', { username, password, email });
             const accessToken = response?.data?.accessToken;
             const streamToken = response?.data?.streamToken;
             const image = response?.data?.image;
