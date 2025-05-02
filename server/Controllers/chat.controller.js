@@ -1,28 +1,18 @@
-const streamServer = require('../stream');
-var User = require('../models/user.model');
+const chatService = require('../services/chat.service');
 
 const handleDeleteConversation = async (req, res) => {
-    console.log("hard-deleting conversation");
+    console.log('hard-deleting conversation');
 
     const cid = req.params.cid;
-    const filter = { cid: { $eq: cid } };
-    const channel = (await streamServer.queryChannels(filter))[0];
+    const username = req.username;
 
     try {
-        await channel.truncate({
-            hard_delete: true,
-            skip_push: false,
-            message: {
-                text: `${req.username} deleted the conversation.`,
-                user_id: req.username
-            }
-        });
+        await chatService.hardDeleteConversation(cid, username);
         return res.sendStatus(200);
     } catch (error) {
-        console.log('Error soft-deleting channel:', error)
+        console.error('Error hard-deleting channel:', error);
         return res.sendStatus(500);
     }
-}
+};
 
-
-module.exports = { handleDeleteConversation }
+module.exports = { handleDeleteConversation };
