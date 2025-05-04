@@ -227,7 +227,8 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
                         }}
                         disabled={loading}
                         className={` h-10 w-[408px] ml-4 ${(error === false) && (list.length === 0) ? 'mt-12' : 'mt-6'} 
-                         text-white font-semibold bg-blue-500 hover:bg-blue-600 flex justify-center items-center`}>
+                         text-white font-semibold bg-blue-500 hover:bg-blue-600 flex justify-center items-center`}
+                        style={{borderRadius: "5px"}}>
                         {
                             loading ? <img src="/loading.png" className="w-9 h-9" alt=""></img> :
                                 status === "Edit" ? "Update" : "Create Group"
