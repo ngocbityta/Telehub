@@ -70,7 +70,8 @@ const ChangeInfoForm = () => {
         <div className="h-full w-full border-gray-300 shadow-xl flex flex-col gap-2">
           <div className="mt-2 flex flex-col gap-8">
             {/* Avatar */}
-            <div className="mx-5 relative flex items-center bg-[var(--file-input-container)] p-2 gap-2">
+            <div className="mx-5 relative flex items-center bg-[var(--file-input-container)] p-2 gap-2"
+                  style={{borderRadius: "5px"}}>
               {/* Uploaded data */}
               {avatar ? (
                 <img
