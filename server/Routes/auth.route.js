@@ -1,20 +1,15 @@
-const router = require('express').Router();
-const authController = require('../controllers/auth.controller');
+import { Router } from "express";
+import authController from "../Controllers/auth.controller.js";
 
-router.post('/', authController.handleLogin)
+const router = Router();
 
-router.post('/google', authController.handleGoogleLogin)
+router.post("/", authController.handleLogin);
+router.post("/google", authController.handleGoogleLogin);
+router.post("/forgot", authController.handleForget);
+router.post("/recover", authController.handleRecover);
+router.post("/verify", authController.handleVerifyToken);
+router.post("/logout", authController.handleLogout);
+router.post("/register", authController.handleRegister);
+router.post("/refreshToken", authController.handleRefreshToken);
 
-router.post('/forgot', authController.handleForget)
-
-router.post('/recover', authController.handleRecover)
-
-router.post('/verify', authController.handleVerifyToken)
-
-router.post('/logout', authController.handleLogout)
-
-router.post('/register', authController.handleRegister);
-
-router.post('/refreshToken', authController.handleRefreshToken);
-
-module.exports = router;
+export default router;

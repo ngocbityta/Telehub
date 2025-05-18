@@ -1,10 +1,10 @@
-const mongoose = require('mongoose')
+import { Schema, model } from "mongoose";
 
-const callSchema = new mongoose.Schema({
-    cid: {
-        type: String,
-        required: true
-    },
-})
+const callSchema = new Schema({
+  cid: {
+    type: String,
+    required: true,
+  },
+});
 
-module.exports = mongoose.model('Call', callSchema)
+export default model("Call", callSchema);

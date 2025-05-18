@@ -1,6 +1,8 @@
-const router = require('express').Router();
-const callController = require('../controllers/call.controller');
+import { Router } from "express";
+import callController from "../Controllers/call.controller.js";
 
-router.get('/', callController.handleCreateCall)
+const router = Router();
 
-module.exports = router;
+router.get("/", callController.handleCreateCall);
+
+export default router;

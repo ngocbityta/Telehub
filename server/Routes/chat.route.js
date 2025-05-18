@@ -1,6 +1,8 @@
-const router = require('express').Router();
-const chatController = require('../controllers/chat.controller');
+import { Router } from "express";
+import chatController from "../Controllers/chat.controller.js";
 
-router.put('/delete/:cid', chatController.handleDeleteConversation)
+const router = Router();
 
-module.exports = router;
+router.put("/delete/:cid", chatController.handleDeleteConversation);
+
+export default router;

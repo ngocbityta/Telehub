@@ -1,5 +1,5 @@
-const admin = require("firebase-admin");
-const fs = require("fs");
+import admin from "firebase-admin";
+import fs from "fs";
 
 let Firestore = null;
 let FirebaseStorage = null;
@@ -8,11 +8,13 @@ const setupFirebase = () => {
   try {
     const keyPath = "./serviceAccountKey.json";
     if (fs.existsSync(keyPath)) {
-      const serviceAccount = require(keyPath);
+      const serviceAccount = JSON.parse(fs.readFileSync(keyPath, "utf8"));
+
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
         storageBucket: "gs://chatk-420915.appspot.com",
       });
+
       Firestore = admin.firestore();
       FirebaseStorage = admin.storage();
       console.log("✅ Firebase initialized.");
@@ -26,4 +28,4 @@ const setupFirebase = () => {
 
 setupFirebase();
 
-module.exports = { Firestore, FirebaseStorage };
+export { Firestore, FirebaseStorage };

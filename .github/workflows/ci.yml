@@ -47,3 +47,7 @@ jobs:
 
       - name: Install server dependencies
         run: npm ci
+
+      - name: Run ESLint (lint)
+        run: npm run lint
+

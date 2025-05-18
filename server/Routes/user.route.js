@@ -1,10 +1,12 @@
-const router = require('express').Router();
-const multer = require('multer');
+import { Router } from "express";
+import multer from "multer";
+import userController from "../Controllers/user.controller.js";
+
+const router = Router();
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-const userController = require('../controllers/user.controller');
+const upload = multer({ storage });
 
-router.post('/edit', upload.single('image'), userController.handleEditInfo)
-router.post('/change-password', userController.handleChangePassword)
+router.post("/edit", upload.single("image"), userController.handleEditInfo);
+router.post("/change-password", userController.handleChangePassword);
 
-module.exports = router;
+export default router;
