@@ -3,7 +3,7 @@ const Loading = () => {
         <img
             alt="loading"
             className="w-[192px] h-[192px] animate-breathing"
-            src={`${process.env.PUBLIC_URL}/logo192.png`}
+            src={`${process.env.PUBLIC_URL}/logo.png`}
         />
     </div>
 }
