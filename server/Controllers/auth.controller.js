@@ -62,7 +62,7 @@ const handleRefreshToken = async (req, res) => {
   const token = req.cookies?.jwt;
   if (!token) return res.status(401).send("No JWT cookies");
 
-  const result = await refreshAccessToken(token);
+  const result = await authService.refreshAccessToken(token);
   if (result.error) return res.status(403).send(result.error);
 
   const { user, accessToken, streamToken } = result;
