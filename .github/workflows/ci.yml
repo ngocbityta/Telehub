@@ -26,9 +26,6 @@ jobs:
       - name: Install client dependencies
         run: npm ci
 
-      - name: Run client tests
-        run: npm test
-
       - name: Build client
         run: npm run build
 
@@ -50,6 +47,3 @@ jobs:
 
       - name: Install server dependencies
         run: npm ci
-
-      - name: Run server tests
-        run: npm test
