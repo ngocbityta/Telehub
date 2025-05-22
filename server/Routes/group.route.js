@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import groupController from "../Controllers/group.controller.js";
+import groupController from "../controllers/group.controller.js";
 
 const router = Router();
 const storage = multer.memoryStorage();
