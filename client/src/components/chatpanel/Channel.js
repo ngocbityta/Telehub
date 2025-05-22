@@ -13,10 +13,8 @@ const CustomChannel = (props) => {
   );
 
   const otherMember = Object.values(chatMembers).filter(
-    member => member?.user?.id !== chatContext.client.userID
+    (member) => member?.user?.id !== chatContext.client.userID
   )[0];
-
-  // console.log(otherMember)
 
   const totalUnreadMessages = channel.countUnread();
 
@@ -25,56 +23,75 @@ const CustomChannel = (props) => {
   const lastMessageDate = new Date(lastMessage?.created_at);
   const currentDate = new Date();
 
-  let lastMessageTime
+  let lastMessageTime;
   if (
     currentDate.getDate() === lastMessageDate.getDate() &&
     currentDate.getMonth() === lastMessageDate.getMonth() &&
     currentDate.getFullYear() === lastMessageDate.getFullYear()
   ) {
-    lastMessageTime = lastMessageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    lastMessageTime = lastMessageDate.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   } else {
-    lastMessageTime = lastMessageDate.toLocaleString();
+    lastMessageTime = lastMessageDate.toLocaleDateString([], {
+      month: "short",
+      day: "numeric",
+    });
   }
 
   return (
-    <div onClick={() => setActiveChannel?.(channel)} className="h-auto min-w-[300px] max-w-[350px] bg-[var(--channel-bg)]">
-      <div className="py-0 flex flex-col overflow-hidden">
-        <div className="overflow-auto">
-          <div className="flex items-center p-4 border-b border-[var(--channel-border-color)] hover:bg-[var(--channel-hover-bg)] hover:cursor-pointer">
-            <div className="mr-4">
-              <div className="relative">
-                <img
-                  className="w-10 h-10 rounded-full object-cover "
-                  src={!isGroup ? otherMember?.user?.image : channel?.data?.image}
-                  alt=""
-                />
-                {
-                  totalOnline > 1 && <span className='top-0 left-7 bg-green-400 absolute w-3.5 h-3.5 border-2 border-white dark:border-gray-800 rounded-full'
-                  ></span>
-                }
-              </div>
-            </div>
-            <div className="flex-1">
-              {
-                isGroup && <span className="text-sm text-gray-500">{`Online: ${totalOnline}`}</span>
-              }
-              <div className="font-medium text-[var(--login-text-color)] opacity-90">{(isGroup ? channel.data.name : otherMember.user_id) || 'Unnamed Channel'}
-              </div>
-              <div className="text-xs truncate max-w-[180px] text-gray-500">{lastMessage?.text}</div>
-            </div >
-            <div className="text-xs flex-[0.3] text-gray-500">
-              {
-                chatContext.channel !== channel && totalUnreadMessages ?
-                  <div className="bg-red-500 w-5 h-5 rounded-full flex justify-center items-center font-light text-white">
-                    {totalUnreadMessages}
-                  </div> :
-                  <span>{lastMessageTime !== 'Invalid Date' && lastMessageTime}</span>
-              }
-            </div>
-          </div>
-        </div>
-      </div>
+    <div
+  onClick={() => setActiveChannel?.(channel)}
+  className={`cursor-pointer w-full max-w-[500px] rounded-md transition-colors duration-200
+    ${chatContext.channel === channel ? 'bg-green-100' : 'bg-white hover:bg-green-50'}
+    border border-gray-200 shadow-sm px-3 py-2`}
+>
+  <div className="flex items-center gap-3">
+    {/* Avatar */}
+    <div className="relative flex-shrink-0">
+      <img
+        className="w-10 h-10 rounded-md object-cover border border-green-400"
+        src={!isGroup ? otherMember?.user?.image : channel?.data?.image || `https://ui-avatars.com/api/?name=${channel?.data?.name || 'G'}`}
+        alt={isGroup ? channel?.data?.name : otherMember?.user?.name}
+      />
+      {/* Online dot */}
+      {(isGroup && totalOnline > 1) || (!isGroup && otherMember?.user?.online) ? (
+        <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full animate-pulse" />
+      ) : null}
     </div>
+
+    {/* Text Info */}
+    <div className="flex-1 min-w-0">
+      <div className="flex justify-between items-center">
+        <h4 className={`truncate text-sm font-semibold ${isGroup ? 'text-green-700' : 'text-gray-900'}`}>
+          {isGroup ? channel.data.name : otherMember?.user?.name || 'Unnamed'}
+        </h4>
+        <span className="text-xs text-gray-400 ml-2 whitespace-nowrap">
+          {lastMessageTime}
+        </span>
+      </div>
+      {isGroup && (
+        <div className="text-[10px] text-green-600 font-medium">
+          {totalOnline} {totalOnline > 1 ? 'online' : 'online'}
+        </div>
+      )}
+      <p className="text-xs truncate text-gray-600 max-w-full">
+        {lastMessage?.text || (lastMessage?.attachments?.length ? '📎 Attachment' : 'No messages yet')}
+      </p>
+    </div>
+
+    {/* Unread badge */}
+    <div className="flex-shrink-0 ml-2">
+      {chatContext.channel !== channel && totalUnreadMessages > 0 ? (
+        <div className="bg-green-600 text-white text-[10px] min-w-[18px] h-5 rounded-full flex items-center justify-center shadow">
+          {totalUnreadMessages > 9 ? '9+' : totalUnreadMessages}
+        </div>
+      ) : null}
+    </div>
+  </div>
+</div>
+
   );
 };
 

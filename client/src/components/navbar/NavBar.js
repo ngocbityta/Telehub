@@ -19,9 +19,7 @@ const NavBar = () => {
   const location = useLocation();
   const logout = useLogout();
 
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
+  const isActive = (path) => location.pathname === path;
 
   const logoutConfirm = () => {
     confirmAlert({
@@ -41,39 +39,42 @@ const NavBar = () => {
 
   const signOut = async () => {
     await logout();
-  }
+  };
 
   return (
-    <div className="border flex flex-col gap-1 items-center bg-[var(--navbar-bg)] border-none">
-      <h1 className="text-2xl text-black font-medium p-3">
-        <img src={`${process.env.PUBLIC_URL}/appicon.png`} className="w-20 h-20" alt="app icon"></img>
-      </h1>
-      <div className="divider my-0"></div>
-      <div className="flex flex-col gap-1 justify-between items-center w-full mt-9">
-        {navItems.map((item, index) => (
-          <Tippy key={index} content={item.title} placement="right">
-            <div className={`rounded-[50%] w-[70px] h-[70px] flex items-center justify-center 
-            ${isActive(item.path) ? 'bg-[var(--active-tab-bg)]' : 'hover:bg-[var(--tab-hover-bg)]'}`}>
-              <Link to={item.path} className="w-full flex justify-center py-4">
-                <span className="p-2 flex flex-row">
-                  <item.icon className="w-6 h-6 text-[var(--tab-icon-color)]" />
-                </span>
-              </Link>
-            </div>
-          </Tippy>
-        ))}
-      </div>
+    <div className="flex flex-col items-center bg-[#e6f4ea] w-[80px] py-6 rounded-2xl shadow-sm">
 
-      {/* Logout */}
-      <div className="flex-1 flex flex-col justify-end pb-4">
-        <div onClick={logoutConfirm} className='rounded-[50%] w-[70px] h-[70px] flex 
-        items-center justify-center hover:bg-[var(--tab-hover-bg)]'>
-          <div className="w-full flex justify-center">
-            <span className="p-2 flex flex-row hover:fill-red-500">
-              <BsPower className="w-6 h-6 text-[var(--tab-icon-color)] hover:fill-red-500" />
-            </span>
-          </div>
+      <div className="flex flex-col w-full h-full">
+        <div>
+          {navItems.map((item, index) => (
+            <Tippy key={index} content={item.title} placement="right">
+              <Link to={item.path}>
+                <div
+                  className={`w-10 h-10 mx-auto flex items-center justify-center rounded-xl transition-colors duration-300 mb-4
+                  ${
+                    isActive(item.path)
+                      ? 'bg-[#3a7d3a] text-white'
+                      : 'text-[#2c6e2c] hover:bg-[#b7deb7]'
+                  }
+                  border-b border-[#a7d7a7]
+                  `}
+                >
+                  <item.icon className="w-5 h-5" />
+                </div>
+              </Link>
+            </Tippy>
+          ))}
         </div>
+
+        {/* Nút logout luôn nằm dưới cùng */}
+        <Tippy content="Logout" placement="right">
+          <button
+            onClick={logoutConfirm}
+            className="w-10 h-10 mx-auto flex items-center justify-center rounded-xl text-[#2c6e2c] hover:bg-red-400 hover:text-white transition-colors duration-300 border-b border-[#a7d7a7] mt-auto"
+          >
+            <BsPower className="w-5 h-5" />
+          </button>
+        </Tippy>
       </div>
     </div>
   );

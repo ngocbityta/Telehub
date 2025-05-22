@@ -42,7 +42,7 @@ function Forgot() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-6">
       <div className="w-full max-w-md bg-white rounded-xl shadow-md p-8">
-        <h2 className="text-2xl font-bold text-center text-indigo-600 mb-4">
+        <h2 className="text-2xl font-bold text-center text-emerald-600 mb-4">
           Forgot your password?
         </h2>
         <p className="text-center text-gray-600 mb-6">
@@ -63,7 +63,7 @@ function Forgot() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             autoComplete="off"
-            className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full px-4 py-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-emerald-400"
           />
         </Tippy>
 
@@ -80,7 +80,7 @@ function Forgot() {
         <button
           onClick={handleSubmit}
           disabled={!validEmail || loading}
-          className="w-full py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
+          className="w-full py-2 bg-emerald-600 text-white rounded-md hover:bg-emerald-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition"
         >
           {loading ? (
             <img src="/loading.png" alt="Loading" className="w-6 h-6 mx-auto" />
@@ -91,7 +91,7 @@ function Forgot() {
 
         <div className="mt-6 text-center text-gray-600 text-sm">
           Remember your password?
-          <Link to="/login" className="ml-2 text-indigo-600 hover:underline">
+          <Link to="/login" className="ml-2 text-emerald-600 hover:underline">
             Login
           </Link>
         </div>

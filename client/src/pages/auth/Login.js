@@ -84,10 +84,10 @@ function Login() {
   }, [trusted]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-white flex items-center justify-center px-4 py-6">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white flex items-center justify-center px-4 py-6">
       <div className="max-w-md w-full bg-white shadow-xl rounded-2xl px-8 py-10 border border-gray-100">
         <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-indigo-600">
+          <h1 className="text-2xl font-bold text-emerald-600">
             Welcome to Telehub
           </h1>
           <p className="text-sm text-gray-500 mt-1">Sign in to your account</p>
@@ -107,7 +107,7 @@ function Login() {
               autoComplete="username"
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
             />
           </div>
 
@@ -124,7 +124,7 @@ function Login() {
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-sm"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
             />
           </div>
 
@@ -134,13 +134,13 @@ function Login() {
                 type="checkbox"
                 checked={trusted}
                 onChange={() => setTrusted((prev) => !prev)}
-                className="accent-indigo-600"
+                className="accent-emerald-600"
               />
               <span>Trust this device</span>
             </label>
             <Link
               to="/forgot"
-              className="text-sm text-indigo-600 hover:underline"
+              className="text-sm text-emerald-600 hover:underline"
             >
               Forgot password?
             </Link>
@@ -151,8 +151,8 @@ function Login() {
             disabled={loading}
             className={`w-full text-sm font-semibold py-2 px-4 rounded-md text-white transition ${
               loading
-                ? "bg-indigo-300 cursor-not-allowed"
-                : "bg-indigo-600 hover:bg-indigo-700"
+                ? "bg-emerald-300 cursor-not-allowed"
+                : "bg-emerald-600 hover:bg-emerald-700"
             }`}
           >
             {loading ? "Logging in..." : "Login"}
@@ -181,7 +181,7 @@ function Login() {
           No account?
           <Link
             to="/register"
-            className="ml-1 text-indigo-600 hover:underline font-medium"
+            className="ml-1 text-emerald-600 hover:underline font-medium"
           >
             Sign up
           </Link>

@@ -80,7 +80,7 @@ const Layout = () => {
       <div className="w-full bg-[var(--conversation-bg)]">
         <div className="flex min-h-screen w-full border border-[var(--navbar-bg)] border-lg">
           <Chat client={client}>
-            <div className={`${path !== '/' ? 'hidden' : ''} w-[350px] bg-[var(--page-bg)]`}>
+            <div className={`${path !== '/' ? 'hidden' : ''} bg-[var(--page-bg)]`}>
               <ChatPanel />
             </div>
             <Outlet />

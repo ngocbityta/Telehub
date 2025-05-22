@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Tippy from "@tippyjs/react";
-import TeamIntro from "../../components/TeamIntro";
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_?]).{6,24}$/;
 
@@ -96,11 +95,6 @@ function Recover() {
 
   return (
     <div className="h-screen w-screen flex bg-[var(--login-right-bg)]">
-      {/* Left side intro */}
-      <div className="w-1/2 bg-gradient-to-r from-[--login-start-gradient] to-[--login-end-gradient] flex items-center justify-center">
-        <TeamIntro />
-      </div>
-
       {/* Right side form */}
       <div className="w-1/2 flex items-center justify-center">
         <div

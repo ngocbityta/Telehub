@@ -103,33 +103,31 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-md p-8">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white flex items-center justify-center px-4 py-6">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl px-8 py-10 border border-gray-100">
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2 className="text-2xl font-bold text-emerald-600">
             Create your account
           </h2>
           <p className="text-sm text-gray-500">Welcome to Telehub</p>
         </div>
-
+  
         {!success ? (
           <form onSubmit={handleSubmit} className="space-y-6">
             <Tippy
-              content={
-                <UsernameTooltip status={validName} hasText={username} />
-              }
+              content={<UsernameTooltip status={validName} hasText={username} />}
               placement="right"
               trigger="focus"
             >
               <input
                 type="text"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 placeholder="Username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </Tippy>
-
+  
             <Tippy
               content={<EmailTooltip status={validEmail} hasText={email} />}
               placement="right"
@@ -137,13 +135,13 @@ function Register() {
             >
               <input
                 type="email"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
             </Tippy>
-
+  
             <Tippy
               content={<PasswordTooltip status={validPwd} hasText={password} />}
               placement="right"
@@ -151,13 +149,13 @@ function Register() {
             >
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </Tippy>
-
+  
             <Tippy
               content={
                 <PasswordCfTooltip status={validMatch} hasText={cfPassword} />
@@ -167,33 +165,33 @@ function Register() {
             >
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
                 placeholder="Confirm Password"
                 value={cfPassword}
                 onChange={(e) => setCfPassword(e.target.value)}
               />
             </Tippy>
-
+  
             {message && (
               <div
                 className={`text-sm ${
-                  hasError ? "text-red-500" : "text-green-500"
+                  hasError ? "text-red-500" : "text-green-600"
                 }`}
               >
                 {message}
               </div>
             )}
-
+  
             <button
               type="submit"
-              className="w-full py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-300"
+              className="w-full py-2 bg-emerald-600 text-white text-sm font-semibold rounded-md hover:bg-emerald-700 transition duration-300"
             >
               Sign Up
             </button>
-
+  
             <div className="text-sm text-center text-gray-500">
               Already have an account?
-              <Link to="/login" className="ml-2 text-blue-600 hover:underline">
+              <Link to="/login" className="ml-2 text-emerald-600 hover:underline font-medium">
                 Login
               </Link>
             </div>
@@ -205,7 +203,7 @@ function Register() {
             </h3>
             <button
               onClick={toHomePage}
-              className="mt-4 px-6 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+              className="mt-4 px-6 py-2 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition"
             >
               Go to Home
             </button>
@@ -213,7 +211,7 @@ function Register() {
         )}
       </div>
     </div>
-  );
+  );  
 }
 
 export default Register;
