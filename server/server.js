@@ -32,12 +32,14 @@ import userRoute from "./routes/user.route.js";
 import groupRoute from "./routes/group.route.js";
 import callRoute from "./routes/call.route.js";
 import chatRoute from "./routes/chat.route.js";
+import friendRoute from "./routes/friend.route.js";
 import verifyJWT from "./middlewares/verifyJWT.js";
 app.use("/api/auth", authRoute);
 app.use("/api/user", verifyJWT, userRoute);
 app.use("/api/group", verifyJWT, groupRoute);
 app.use("/api/call", verifyJWT, callRoute);
 app.use("/api/chat", verifyJWT, chatRoute);
+app.use("/api/friend", friendRoute);
 
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);

@@ -1,7 +1,6 @@
 import { hardDeleteConversation } from "../services/chat.service.js";
 
 const handleDeleteConversation = async (req, res) => {
-  console.log("hard-deleting conversation");
 
   const cid = req.params.cid;
   const username = req.username;
