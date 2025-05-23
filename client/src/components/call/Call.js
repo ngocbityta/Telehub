@@ -17,7 +17,7 @@ export default function Call() {
 
         // console.log(callId);
 
-        const apiKey = 'j6cg6c93cpmj';
+        const apiKey = 'e9j52x7tg6cw';
         const token = streamToken;
         const userId = username;
 

@@ -45,7 +45,6 @@ const handleFindUser = async (req, res) => {
 };
 
 const handleCreateGroup = async (req, res) => {
-  console.log("creating group");
   let imageURL;
 
   const image = req.file;
@@ -96,7 +95,6 @@ const handleCreateGroup = async (req, res) => {
 };
 
 const handleEditGroup = async (req, res) => {
-  console.log("editing group");
   let imageURL = null;
   const image = req.file;
 
