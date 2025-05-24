@@ -9,7 +9,6 @@ const editFriendList = async (userId, userFriends) => {
     await friendDoc.save();
     return friendDoc;
   }
-
   const existedUser = await User.findById(userId);
   if (!existedUser) {
     throw new Error("User not found");
