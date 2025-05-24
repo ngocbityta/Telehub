@@ -32,6 +32,7 @@ import userRoute from "./routes/user.route.js";
 import groupRoute from "./routes/group.route.js";
 import callRoute from "./routes/call.route.js";
 import chatRoute from "./routes/chat.route.js";
+import aiRoute from "./routes/ai.route.js";
 import friendRoute from "./routes/friend.route.js";
 import verifyJWT from "./middlewares/verifyJWT.js";
 app.use("/api/auth", authRoute);
@@ -40,6 +41,7 @@ app.use("/api/group", verifyJWT, groupRoute);
 app.use("/api/call", verifyJWT, callRoute);
 app.use("/api/chat", chatRoute);
 app.use("/api/friend", friendRoute);
+app.use("/api/ai", aiRoute);
 
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
