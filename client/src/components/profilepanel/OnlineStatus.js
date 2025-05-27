@@ -17,21 +17,29 @@ const OnlineStatus = () => {
   // Determine tooltip content based on online status
   const statusOptions = () => {
     return (
-      <div className="w-[150px] h-[85px] flex flex-col gap-0">
-        <div
-          onClick={() => handleOnlineStatusChange("Online")}
-          className="cursor-pointer text-green-500 hover:bg-gray-200 font-medium text-center p-1">
-          Online
-        </div>
-        <div
-          onClick={() => handleOnlineStatusChange("Offline")}
-          className="cursor-pointer text-gray-500 hover:bg-gray-200 font-medium text-center p-1">
-          Offline
-        </div>
-        <div
-          onClick={() => handleOnlineStatusChange("Busy")}
-          className="cursor-pointer text-red-500 hover:bg-gray-200 font-medium text-center p-1">
-          Busy
+      <div className="w-[180px] bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="py-1">
+          <div
+            onClick={() => handleOnlineStatusChange("Online")}
+            className="cursor-pointer text-green-500 hover:bg-gray-100 font-medium px-4 py-2 transition-colors duration-200 flex items-center gap-2"
+          >
+            <div className="w-2 h-2 rounded-full bg-green-500"></div>
+            Online
+          </div>
+          <div
+            onClick={() => handleOnlineStatusChange("Offline")}
+            className="cursor-pointer text-gray-500 hover:bg-gray-100 font-medium px-4 py-2 transition-colors duration-200 flex items-center gap-2"
+          >
+            <div className="w-2 h-2 rounded-full bg-gray-500"></div>
+            Offline
+          </div>
+          <div
+            onClick={() => handleOnlineStatusChange("Busy")}
+            className="cursor-pointer text-red-500 hover:bg-gray-100 font-medium px-4 py-2 transition-colors duration-200 flex items-center gap-2"
+          >
+            <div className="w-2 h-2 rounded-full bg-red-500"></div>
+            Busy
+          </div>
         </div>
       </div>
     );
@@ -46,19 +54,29 @@ const OnlineStatus = () => {
         placement="bottom"
         interactive={true}
         theme={"light"}
+        arrow={true}
+        offset={[0, 8]}
       >
-        <div className="flex flex-row items-center gap-0">
-          <span
-            className={`inline-block hover:cursor-pointer px-2 py-1 rounded-md text-sm font-bold ${onlineStatus === "Online"
-              ? "text-green-500"
+        <div className="flex flex-row items-center gap-1 bg-gray-50 hover:bg-gray-100 rounded-lg px-3 py-1.5 transition-colors duration-200 cursor-pointer">
+          <div className={`w-2 h-2 rounded-full ${
+            onlineStatus === "Online"
+              ? "bg-green-500"
               : onlineStatus === "Offline"
-                ? "text-gray-500"
-                : "text-red-500 "
-              }`}
+                ? "bg-gray-500"
+                : "bg-red-500"
+          }`}></div>
+          <span
+            className={`text-sm font-medium ${
+              onlineStatus === "Online"
+                ? "text-green-500"
+                : onlineStatus === "Offline"
+                  ? "text-gray-500"
+                  : "text-red-500"
+            }`}
           >
             {onlineStatus}
           </span>
-          <GoTriangleDown />
+          <GoTriangleDown className="text-gray-400" />
         </div>
       </Tippy>
     </div>
