@@ -93,9 +93,20 @@ const changePassword = async (
 const getUserById = async (userId) => {
   const user = await User.findById(userId);
   if (user) {
-    return user;
+    return user.toJSON();
   }
   throw new Error("User not found");
-}
+};
 
-export default { editUserInfo, changePassword, getUserById };
+const getUser = async (request) => {
+  const filter = {
+    username: request.username,
+  };
+  const user = await User.findOne(filter);
+  if (user) {
+    return user.toJSON();
+  }
+  throw new Error("User not found");
+};
+
+export default { editUserInfo, changePassword, getUserById, getUser };

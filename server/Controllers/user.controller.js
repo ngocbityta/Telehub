@@ -1,7 +1,6 @@
 import userService from "../services/user.service.js";
 
 const handleEditInfo = async (req, res) => {
-  console.log(`${req.username} updating profile`);
   try {
     const user = await userService.editUserInfo(
       req.userId,
@@ -19,7 +18,6 @@ const handleEditInfo = async (req, res) => {
 };
 
 const handleChangePassword = async (req, res) => {
-  console.log(`${req.username} changing password`);
   try {
     const result = await userService.changePassword(
       req.userId,
@@ -37,7 +35,6 @@ const handleChangePassword = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
-  console.log(`${req.username} fetching user by ID`);
   try {
     const user = await userService.getUserById(req.params.userId);
     return res.status(200).json(user);
@@ -49,4 +46,16 @@ const getUserById = async (req, res) => {
   }
 };
 
-export default { handleEditInfo, handleChangePassword, getUserById };
+const getUser = async (req, res) => {
+  try {
+    const user = await userService.getUser(req.body);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export default { handleEditInfo, handleChangePassword, getUserById, getUser };
