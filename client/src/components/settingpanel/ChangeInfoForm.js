@@ -78,6 +78,7 @@ const ChangeInfoForm = () => {
                   src={avatar?.preview}
                   alt="Avatar"
                   className="rounded-full w-20 h-20 object-cover"
+                  style={{borderWidth: "2px", borderColor: "gray"}}
                 />
               ) : (
                 <img

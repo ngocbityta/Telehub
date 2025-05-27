@@ -10,6 +10,7 @@ import Groups from "./pages/home/Groups.js";
 import Register from "./pages/auth/Register.js";
 import Login from "./pages/auth/Login.js";
 import Forgot from "./pages/auth/Forgot.js";
+import Friends from "./pages/home/Friends.js";
 
 import { UserDataProvider } from "./context/UserDataProvider.js"
 import useTheme from "./hooks/useTheme.js"
@@ -42,6 +43,7 @@ export default function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/groups" element={<Groups />} />
+              <Route path="/friends" element={<Friends/>} />
             </Route>
 
             <Route path="/call/:callType/:callId/" element={<Call />} />

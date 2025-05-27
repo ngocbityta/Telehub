@@ -27,7 +27,9 @@ const getFriendList = async (userId) => {
   const friendDoc = await Friend.findOne({ userId });
 
   if (friendDoc) {
-    return friendDoc.userFriends;
+    return {
+      result: friendDoc.userFriends
+    }
   }
 
   throw new Error("User not found");
