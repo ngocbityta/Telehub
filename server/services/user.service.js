@@ -90,4 +90,12 @@ const changePassword = async (
   throw new Error("User not found");
 };
 
-export default { editUserInfo, changePassword };
+const getUserById = async (userId) => {
+  const user = await User.findById(userId);
+  if (user) {
+    return user;
+  }
+  throw new Error("User not found");
+}
+
+export default { editUserInfo, changePassword, getUserById };

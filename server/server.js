@@ -39,9 +39,9 @@ app.use("/api/auth", authRoute);
 app.use("/api/user", verifyJWT, userRoute);
 app.use("/api/group", verifyJWT, groupRoute);
 app.use("/api/call", verifyJWT, callRoute);
-app.use("/api/chat", chatRoute);
-app.use("/api/friend", friendRoute);
-app.use("/api/ai", aiRoute);
+app.use("/api/chat", verifyJWT, chatRoute);
+app.use("/api/friend", verifyJWT, friendRoute);
+app.use("/api/ai", verifyJWT, aiRoute);
 
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);

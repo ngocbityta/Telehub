@@ -36,4 +36,17 @@ const handleChangePassword = async (req, res) => {
   }
 };
 
-export default { handleEditInfo, handleChangePassword };
+const getUserById = async (req, res) => {
+  console.log(`${req.username} fetching user by ID`);
+  try {
+    const user = await userService.getUserById(req.params.userId);
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export default { handleEditInfo, handleChangePassword, getUserById };

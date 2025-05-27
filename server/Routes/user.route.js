@@ -8,5 +8,6 @@ const upload = multer({ storage });
 
 router.post("/edit", upload.single("image"), userController.handleEditInfo);
 router.post("/change-password", userController.handleChangePassword);
+router.get("/:userId", userController.getUserById);
 
 export default router;
