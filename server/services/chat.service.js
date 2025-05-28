@@ -91,7 +91,7 @@ const searchMessageFromConversation = async (cid, searchText) => {
   const filter = { cid: { $eq: cid } };
   if (!searchText) {
     return [];
-  } 
+  }
 
   const result = await streamServer.search(filter, {
     text: {
@@ -109,7 +109,42 @@ const searchMessageFromConversation = async (cid, searchText) => {
         image: messageResponse.message.user.image,
       },
       createdAt: messageResponse.message.createdAt,
-    }
+    };
+  });
+
+  return messages;
+};
+
+const getRecentMessage = async (cid) => {
+  const filter = { cid: { $eq: cid } };
+  const options = {
+    limit: 10,
+    sort: {
+      created_at: -1,
+    },
+  };
+
+  const result = await streamServer.search(
+    filter,
+    {
+      text: {
+        $exists: true,
+      },
+    },
+    options
+  );
+
+  const messages = _.map(result.results, (messageResponse) => {
+    return {
+      text: messageResponse.message.text,
+      html: messageResponse.message.html,
+      user: {
+        id: messageResponse.message.user.id,
+        name: messageResponse.message.user.name,
+        image: messageResponse.message.user.image,
+      },
+      createdAt: messageResponse.message.createdAt,
+    };
   });
 
   return messages;
@@ -120,4 +155,5 @@ export default {
   getMediaFromConservation,
   getFilesFromConversation,
   searchMessageFromConversation,
+  getRecentMessage,
 };

@@ -53,9 +53,22 @@ const searchMessageFromConversation = async (req, res) => {
   }
 };
 
+const getRecentMessage = async (req, res) => {
+  const cid = req.params.cid;
+
+  try {
+    const messages = await chatService.getRecentMessage(cid);
+    return res.status(200).json(messages);
+  } catch (error) {
+    console.error("Error getting messages from conversation:", error);
+    return res.sendStatus(500);
+  }
+};
+
 export default {
   handleDeleteConversation,
   getMediaFromConservation,
   getFilesFromConversation,
   searchMessageFromConversation,
+  getRecentMessage,
 };
