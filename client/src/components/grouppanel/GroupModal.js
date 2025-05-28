@@ -67,10 +67,20 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
     }
 
     const handleCreateGroup = async () => {
+        if (!groupName.trim()) {
+            setError(true);
+            setMessage("Group name is required");
+            setLoading(false);
+            return;
+        }
+
         try {
+            setLoading(true);
             const formData = new FormData();
-            formData.append('image', groupAvatar);
-            formData.append('groupName', groupName);
+            if (groupAvatar) {
+                formData.append('image', groupAvatar);
+            }
+            formData.append('groupName', groupName.trim());
             formData.append('members', JSON.stringify(list));
 
             const response = await axiosPrivate.post('/api/group/create', formData, {
@@ -79,14 +89,20 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
                 }
             });
 
-            onCreateGroup(response.data);
-            toggleModal(false);
+            if (response.data) {
+                onCreateGroup(response.data);
+                toggleModal(false);
+            } else {
+                setError(true);
+                setMessage("Failed to create group");
+            }
         } catch (error) {
             console.error('Error creating group:', error);
             setError(true);
-            setMessage("Failed");
+            setMessage(error.response?.data?.message || "Failed to create group");
+        } finally {
+            setLoading(false);
         }
-        setLoading(false);
     }
 
     const handleEditGroup = async () => {

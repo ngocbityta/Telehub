@@ -78,6 +78,7 @@ const ChangePasswordForm = () => {
                   border-2 border-gray-300 duration-300 hover:border-cyan-600 focus:border-blue-700"
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
+                  style={{borderRadius: '10px'}}
                 />
               </Tippy>
             </div>
@@ -102,6 +103,7 @@ const ChangePasswordForm = () => {
                   border-2 border-gray-300 duration-300 hover:border-cyan-600 focus:border-blue-700"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
+                  style={{borderRadius: '10px'}}
                 />
               </Tippy>
             </div>
@@ -126,6 +128,7 @@ const ChangePasswordForm = () => {
                   border-2 border-gray-300 duration-300 hover:border-cyan-600 focus:border-blue-700"
                   value={matchPassword}
                   onChange={(e) => setMatchPassword(e.target.value)}
+                  style={{borderRadius: '10px'}}
                 />
               </Tippy>
             </div>

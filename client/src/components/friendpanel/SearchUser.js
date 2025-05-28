@@ -3,7 +3,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import useAuth from "../../hooks/useAuth";
 
 const SearchUser = () => {
-  const [userId, setUserId] = useState("");
+  const [username, setUsername] = useState("");
   const [userInfo, setUserInfo] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -19,14 +19,14 @@ const SearchUser = () => {
     setUserInfo(null);
     setFriendRequestSent(false);
     
-    if (!userId.trim()) {
-      setError("Vui lòng nhập ID người dùng.");
+    if (!username.trim()) {
+      setError("Vui lòng nhập tên người dùng.");
       return;
     }
 
     try {
       setLoading(true);
-      const response = await axiosPrivate.get(`/api/user/${userId}`);
+      const response = await axiosPrivate.get(`/api/user/${username}`);
       setUserInfo(response.data);
     } catch (err) {
       console.error("Error searching user:", err);
@@ -66,9 +66,9 @@ const SearchUser = () => {
       <form onSubmit={handleSearch} className="flex items-center space-x-2 mb-4">
         <input
           type="text"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-          placeholder="Nhập ID người dùng"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Nhập tên người dùng"
           className="border p-2 rounded flex-grow"
         />
         <button
