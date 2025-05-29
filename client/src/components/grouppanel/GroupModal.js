@@ -141,7 +141,7 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
             {/* Container */}
             <div className={`w-[440px] pb-5 bg-[var(--page-bg)] rounded-3xl flex-col z-20`}>
                 {/* Header */}
-                <div className="h-[60px] bg-blue-500 flex items-center justify-between rounded-t-3xl ">
+                <div className="h-[60px] bg-green-700 flex items-center justify-between rounded-t-3xl ">
                     <h3 className="text-white font-bold text-[18px] pl-4 ">{status} Group</h3>
                     <button
                         className="text-white font-bold text-base pr-4"
@@ -203,7 +203,7 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
                         type="submit"
                         onClick={handleAdd}
                         disabled={!userAdd}
-                        className={`absolute right-0 w-16 h-10 mt-2 ${userAdd === '' ? 'bg-gray-500 hover:bg-gray-600 hover:cursor-not-allowed' : '  bg-blue-500 hover:bg-blue-600'} duration-300 text-white font-semibold rounded-md  `}>
+                        className={`absolute right-0 w-16 h-10 mt-2 ${userAdd === '' ? 'bg-gray-500 hover:bg-gray-600 hover:cursor-not-allowed' : '  bg-green-700 hover:bg-blue-600'} duration-300 text-white font-semibold rounded-md  `}>
                         Add
                     </button>
                 </div>
@@ -243,7 +243,7 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
                         }}
                         disabled={loading}
                         className={` h-10 w-[408px] ml-4 ${(error === false) && (list.length === 0) ? 'mt-12' : 'mt-6'} 
-                         text-white font-semibold bg-blue-500 hover:bg-blue-600 flex justify-center items-center`}
+                         text-white font-semibold bg-green-700 hover:bg-blue-600 flex justify-center items-center`}
                         style={{borderRadius: "5px"}}>
                         {
                             loading ? <img src="/loading.png" className="w-9 h-9" alt=""></img> :

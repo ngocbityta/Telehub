@@ -29,7 +29,7 @@ const Settings = () => {
   return (
     <div className="h-auto min-w-[350px] bg-[var(--page-bg)]">
       {/* Header */}
-      <h1 className="p-3 text-2xl font-bold flex items-center text-blue-500 mb-0">
+      <h1 className="p-3 text-2xl font-bold flex items-center text-green-700 mb-0">
         Settings
       </h1>
       <div className="divider mt-0"></div>
@@ -42,11 +42,11 @@ const Settings = () => {
           >
             Change Information
             {showChangeInfo ? (
-              <span className="text-blue-500 text-xl">
+              <span className="text-green-700 text-xl">
                 <FaMinusCircle />
               </span>
             ) : (
-              <span className="text-blue-500 text-xl">
+              <span className="text-green-700 text-xl">
                 <FaPlusCircle />
               </span>
             )}
@@ -61,11 +61,11 @@ const Settings = () => {
           >
             Change Password
             {showChangePassword ? (
-              <span className="text-blue-500 text-xl">
+              <span className="text-green-700 text-xl">
                 <FaMinusCircle />
               </span>
             ) : (
-              <span className="text-blue-500 text-xl">
+              <span className="text-green-700 text-xl">
                 <FaPlusCircle />
               </span>
             )}
@@ -80,11 +80,11 @@ const Settings = () => {
           >
             System settings
             {showSystemSettings ? (
-              <span className="text-blue-500 text-xl">
+              <span className="text-green-700 text-xl">
                 <FaMinusCircle />
               </span>
             ) : (
-              <span className="text-blue-500 text-xl">
+              <span className="text-green-700 text-xl">
                 <FaPlusCircle />
               </span>
             )}

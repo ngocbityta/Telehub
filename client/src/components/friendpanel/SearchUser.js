@@ -26,7 +26,7 @@ const SearchUser = () => {
 
     try {
       setLoading(true);
-      const response = await axiosPrivate.get(`/api/user/${username}`);
+      const response = await axiosPrivate.post(`/api/user/get-user`, {username});
       setUserInfo(response.data);
     } catch (err) {
       console.error("Error searching user:", err);
@@ -69,12 +69,14 @@ const SearchUser = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Nhập tên người dùng"
-          className="border p-2 rounded flex-grow"
+          className="border p-2 rounded flex-grow bg-white"
+          style={{borderRadius: '10px'}}
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600"
           disabled={loading}
+          style={{borderRadius: '10px'}}
         >
           {loading ? "Đang tìm..." : "Tìm kiếm"}
         </button>

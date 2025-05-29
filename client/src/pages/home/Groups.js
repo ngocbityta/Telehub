@@ -15,9 +15,9 @@ const Groups = () => {
     <div className="h-auto min-w-[350px] bg-[var(--page-bg)]">
       {/* Header */}
       <div>
-        <h1 className="font-bold text-blue-500 text-2xl p-3"> Groups </h1>
+        <h1 className="font-bold text-green-700 text-2xl p-3"> Groups </h1>
       </div>
-
+      <div className="divider mt-0"></div>
       {/* Create Button */}
       <div className="p-3">
         <CreateBox onCreateGroup={handleCreateGroup} />
