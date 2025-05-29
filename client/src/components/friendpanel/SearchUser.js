@@ -41,7 +41,7 @@ const SearchUser = () => {
 
   const handleAddFriend = async () => {
     try {
-      await axiosPrivate.post('/api/friend/editFriendList', {
+      await axiosPrivate.post('/api/friend/edit-friend-list', {
         userId: auth._id,
         userFriend: {
             id: userInfo._id,

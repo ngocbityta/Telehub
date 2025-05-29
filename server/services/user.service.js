@@ -102,7 +102,7 @@ const getUser = async (request) => {
   const filter = {
     username: request.username,
   };
-  const user = await User.findOne(filter);
+  const user = await User.find(filter);
   if (user) {
     return user.toJSON();
   }

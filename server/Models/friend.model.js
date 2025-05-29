@@ -8,13 +8,13 @@ const friendSchema = new Schema(
       required: true,
       unique: true,
     },
-    userFriends: [
+    friendList: [
       {
         id: {
           type: String,
           required: true,
         },
-        userName: {
+        username: {
           type: String,
           required: true,
         },
@@ -22,6 +22,12 @@ const friendSchema = new Schema(
           type: String,
           required: false,
         },
+        latitude: {
+          type: Number,
+        },
+        longitude: {
+          type: Number,
+        }
       },
     ],
   },

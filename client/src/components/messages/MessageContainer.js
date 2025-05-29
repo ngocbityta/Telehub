@@ -51,9 +51,9 @@ const MessageContainer = () => {
       
       // Gửi tin nhắn đến AI để xử lý
       const aiResponse = await axiosPrivate.post('/api/ai/reply', {
-        userName: auth.username,
+        username: auth.username,
         messages: recentMessages.data.map(msg => ({
-          userName: msg.user.name,
+          username: msg.user.name,
           text: msg.text
         }))
       });

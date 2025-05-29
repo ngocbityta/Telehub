@@ -37,11 +37,11 @@ import goongRoute from "./routes/goong.route.js";
 import friendRoute from "./routes/friend.route.js";
 import verifyJWT from "./middlewares/verifyJWT.js";
 app.use("/api/auth", authRoute);
-app.use("/api/user", verifyJWT, userRoute);
-app.use("/api/group", verifyJWT, groupRoute);
-app.use("/api/call", verifyJWT, callRoute);
+app.use("/api/user", userRoute);
+app.use("/api/group", groupRoute);
+app.use("/api/call", callRoute);
 app.use("/api/chat", chatRoute);
-app.use("/api/friend", verifyJWT, friendRoute);
+app.use("/api/friend", friendRoute);
 app.use("/api/ai", verifyJWT, aiRoute);
 app.use("/api/goong", goongRoute);
 

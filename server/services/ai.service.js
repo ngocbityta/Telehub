@@ -1,17 +1,17 @@
 import _ from "lodash";
 import ai from "../gemini.js";
 
-const getGeminiResponseFromMessages = async (userName, messages) => {
+const getGeminiResponseFromMessages = async (username, messages) => {
   if (_.isEmpty(messages) || messages.length === 0 || messages.length > 10) {
     return "Xin lỗi, tôi không thể phản hồi ngay bây giờ.";
   }
 
   const messagesInString = _.map(messages, (message) => {
-    return `${message.userName}: ${message.text}`;
+    return `${message.username}: ${message.text}`;
   }).join("\n");
 
   const contents =
-    `You are a helpful assistant in a multi-person chat. I am ${userName} in this conversation. ` +
+    `You are a helpful assistant in a multi-person chat. I am ${username} in this conversation. ` +
     `Please reply as a participant based on the context. Do not include personal opinions or information. ` +
     `Keep the response concise and focused. Here are the messages:\n\n` +
     messagesInString;

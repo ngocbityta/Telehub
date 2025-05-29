@@ -17,7 +17,7 @@ const AddFriend = ({ onFriendAdded }) => {
 
     try {
       // Lưu ý: bỏ dấu '/' cuối nếu backend không require
-      const response = await axiosPrivate.post("/api/friend/editFriendList", {
+      const response = await axiosPrivate.post("/api/friend/edit-friend-list", {
         action: "add",
         friendUsername: friendUsername.trim(),
       });
