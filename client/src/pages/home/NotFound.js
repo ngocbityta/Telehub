@@ -6,7 +6,7 @@ const NotFound = () => {
     <div className="bg-white w-screen h-screen flex flex-col justify-center items-center">
       {/* 404 */}
       <div className="">
-          <img src={`${process.env.PUBLIC_URL}/404error.png`} className="w-[460px] h-auto:" alt="app icon"></img>
+          <img src={`${process.env.PUBLIC_URL}/404error.png`} className="w-auto h-auto:" alt="app icon"></img>
       </div>
 
       {/* Text */}
@@ -21,7 +21,7 @@ const NotFound = () => {
       {/* Link to Home */}
       <div className="mt-[50px]">
         <Link to="/">
-          <div className="text-blue-500 text-[30px] font-[600px]  underline underline-offset-8 hover:text-blue-700 ">
+          <div className="text-green-700 text-[30px] font-[600px]  underline underline-offset-8 hover:text-blue-700 ">
             To Homepage
           </div>
         </Link>

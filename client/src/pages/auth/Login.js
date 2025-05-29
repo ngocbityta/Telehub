@@ -85,106 +85,114 @@ function Login() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white flex items-center justify-center px-4 py-6">
-      <div className="max-w-md w-full bg-white shadow-xl rounded-2xl px-8 py-10 border border-gray-100">
-        <div className="mb-6 text-center">
-          <h1 className="text-2xl font-bold text-emerald-600">
-            Welcome to Telehub
-          </h1>
-          <p className="text-sm text-gray-500 mt-1">Sign in to your account</p>
+      <div className="max-w-4xl w-full flex bg-white shadow-xl rounded-2xl overflow-hidden">
+        {/* Logo Section */}
+        <div className="hidden md:flex w-1/2 bg-emerald-50 items-center justify-center p-8">
+          <img src="/logo.png" alt="Telehub Logo" className="max-w-full h-auto" />
         </div>
-
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label
-              htmlFor="identifier"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Username or Email
-            </label>
-            <input
-              id="identifier"
-              type="text"
-              autoComplete="username"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
-            />
+        
+        {/* Login Form Section */}
+        <div className="w-full md:w-1/2 px-8 py-10">
+          <div className="mb-6 text-center">
+            <h1 className="text-2xl font-bold text-emerald-600">
+              Welcome to Telehub
+            </h1>
+            <p className="text-sm text-gray-500 mt-1">Sign in to your account</p>
           </div>
 
-          <div>
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
-            />
-          </div>
-
-          <div className="flex items-center justify-between">
-            <label className="flex items-center space-x-2 text-sm text-gray-600">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div>
+              <label
+                htmlFor="identifier"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Username or Email
+              </label>
               <input
-                type="checkbox"
-                checked={trusted}
-                onChange={() => setTrusted((prev) => !prev)}
-                className="accent-emerald-600"
+                id="identifier"
+                type="text"
+                autoComplete="username"
+                value={identifier}
+                onChange={(e) => setIdentifier(e.target.value)}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
               />
-              <span>Trust this device</span>
-            </label>
-            <Link
-              to="/forgot"
-              className="text-sm text-emerald-600 hover:underline"
-            >
-              Forgot password?
-            </Link>
-          </div>
+            </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className={`w-full text-sm font-semibold py-2 px-4 rounded-md text-white transition ${
-              loading
-                ? "bg-emerald-300 cursor-not-allowed"
-                : "bg-emerald-600 hover:bg-emerald-700"
-            }`}
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+              />
+            </div>
 
-          {message && (
-            <p
-              className={`text-sm mt-2 ${
-                hasError ? "text-red-500" : "text-green-600"
+            <div className="flex items-center justify-between">
+              <label className="flex items-center space-x-2 text-sm text-gray-600">
+                <input
+                  type="checkbox"
+                  checked={trusted}
+                  onChange={() => setTrusted((prev) => !prev)}
+                  className="accent-emerald-600"
+                />
+                <span>Trust this device</span>
+              </label>
+              <Link
+                to="/forgot"
+                className="text-sm text-emerald-600 hover:underline"
+              >
+                Forgot password?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className={`w-full text-sm font-semibold py-2 px-4 rounded-md text-white transition ${
+                loading
+                  ? "bg-emerald-300 cursor-not-allowed"
+                  : "bg-emerald-600 hover:bg-emerald-700"
               }`}
             >
-              {message}
-            </p>
-          )}
-        </form>
+              {loading ? "Logging in..." : "Login"}
+            </button>
 
-        <div className="flex items-center justify-center my-5">
-          <span className="h-px w-full bg-gray-200" />
-          <span className="px-3 text-sm text-gray-400">or</span>
-          <span className="h-px w-full bg-gray-200" />
-        </div>
+            {message && (
+              <p
+                className={`text-sm mt-2 ${
+                  hasError ? "text-red-500" : "text-green-600"
+                }`}
+              >
+                {message}
+              </p>
+            )}
+          </form>
 
-        <div id="signInWithGoogle" className="flex justify-center" />
+          <div className="flex items-center justify-center my-5">
+            <span className="h-px w-full bg-gray-200" />
+            <span className="px-3 text-sm text-gray-400">or</span>
+            <span className="h-px w-full bg-gray-200" />
+          </div>
 
-        <div className="mt-6 text-center text-sm">
-          No account?
-          <Link
-            to="/register"
-            className="ml-1 text-emerald-600 hover:underline font-medium"
-          >
-            Sign up
-          </Link>
+          <div id="signInWithGoogle" className="flex justify-center" />
+
+          <div className="mt-6 text-center text-sm">
+            No account?
+            <Link
+              to="/register"
+              className="ml-1 text-emerald-600 hover:underline font-medium"
+            >
+              Sign up
+            </Link>
+          </div>
         </div>
       </div>
     </div>

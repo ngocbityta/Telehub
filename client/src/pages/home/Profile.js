@@ -8,7 +8,7 @@ const Profile = () => {
   return (
     <div className="h-auto min-w-[350px] bg-[var(--page-bg)]">
       {/* Header */}
-      <h1 className="p-3 text-2xl font-bold flex items-center text-blue-500 mb-0">
+      <h1 className="p-3 text-2xl font-bold flex items-center text-green-700 mb-0">
         Profile
       </h1>
       <div className="divider mt-0"></div>
