@@ -50,7 +50,7 @@ export default function Call() {
                 setCall(null);
             }
         };
-    }, [streamToken, username, callId, auth.image]);
+    }, [callId, auth]);
 
     if (error) {
         return <div>Error: {error.message}</div>;

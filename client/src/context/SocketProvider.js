@@ -17,8 +17,9 @@ export const SocketProvider = ({ children }) => {
                 },
             });
             setSocket(newSocket);
+            console.log(`Authenticated`);
         } else {
-            console.error(`Not authenticated`);
+            console.error(`Not authenticated yet`);
         }
     }, [auth]);
 
