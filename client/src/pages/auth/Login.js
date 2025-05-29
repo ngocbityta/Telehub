@@ -29,9 +29,9 @@ function Login() {
           picture,
         });
 
-        const { username, fullname, accessToken, streamToken, image } =
+        const { username, fullname, accessToken, streamToken, image, userId } =
           res.data;
-        setAuth({ username, fullname, email, accessToken, streamToken, image });
+        setAuth({ username, fullname, email, accessToken, streamToken, image, userId });
         navigate("/", { replace: true });
       } catch (err) {
         console.error(err);
@@ -65,9 +65,9 @@ function Login() {
     setLoading(true);
     try {
       const res = await axios.post("/api/auth", { identifier, password });
-      const { username, fullname, email, accessToken, streamToken, image } =
+      const { username, fullname, email, accessToken, streamToken, image, userId } =
         res.data;
-      setAuth({ username, fullname, email, accessToken, streamToken, image });
+      setAuth({ username, fullname, email, accessToken, streamToken, image, userId });
       navigate(from, { replace: true });
     } catch (err) {
       setHasError(true);
@@ -114,7 +114,7 @@ function Login() {
                 autoComplete="username"
                 value={identifier}
                 onChange={(e) => setIdentifier(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+                className="bg-white mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
               />
             </div>
 
@@ -131,7 +131,7 @@ function Login() {
                 autoComplete="current-password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
+                className="bg-white mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 text-sm"
               />
             </div>
 
