@@ -29,8 +29,8 @@ const getFriendList = async (req, res) => {
 
 const createFriendRequest = async (req, res) => {
   try {
-    const result = await friendService.createFriendRequest(req.body.userId, req.body.friendId);
-    return res.status(200).json(result);
+    await friendService.createFriendRequest(req.body.userId, req.body.friendId);
+    return res.status(200);
   } catch (error) {
     console.log(error);
     return res
@@ -41,8 +41,8 @@ const createFriendRequest = async (req, res) => {
 
 const responseFriendRequest = async (req, res) => {
   try {
-    const result = await friendService.responseFriendRequest(req.body.friendRequestId, req.body.type);
-    return res.status(200).json(result);
+    await friendService.responseFriendRequest(req.body.friendRequestId, req.body.type);
+    return res.status(200);
   } catch (error) {
     console.log(error);
     return res
@@ -55,6 +55,18 @@ const getFriendRequestList = async (req, res) => {
   try {
     const result = await friendService.getFriendRequestList(req.body.userId);
     return res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+const deleteFriend = async (req, res) => {
+  try {
+    await friendService.deleteFriend(req.body.userId, req.body.friendId);
+    return res.status(200);
   } catch (error) {
     console.log(error);
     return res
@@ -76,4 +88,4 @@ const searchFriends = async (req, res) => {
   }
 };
 
-export default { editFriendList, getFriendList, searchFriends, createFriendRequest, responseFriendRequest, getFriendRequestList };
+export default { editFriendList, getFriendList, searchFriends, createFriendRequest, responseFriendRequest, getFriendRequestList, deleteFriend };

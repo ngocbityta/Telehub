@@ -8,6 +8,7 @@ router.post("/get-friend-list", friendController.getFriendList);
 router.post("/create-friend-request", friendController.createFriendRequest);
 router.post("/response-friend-request", friendController.responseFriendRequest);
 router.post("/get-friend-request-list", friendController.getFriendRequestList);
+router.post("/delete-friend", friendController.deleteFriend);
 router.post("/search-friends", friendController.searchFriends);
 
 export default router;

@@ -91,19 +91,22 @@ const getFriendRequestList = async (userId) => {
 };
 
 const deleteFriend = async (userId, friendId) => {
-  let friendDoc = await Friend.findOne({ userId });
-  friendDoc.friendList = _.filter(friendDoc.friendList, (friend) => {
-    return friend.id !== friendId;
-  });
-  friendDoc.save();
+  const userDoc = await Friend.findOne({ userId });
+  if (userDoc) {
+    userDoc.friendList = userDoc.friendList.filter(
+      (friend) => friend.id !== friendId
+    );
+    await userDoc.save();
+  }
 
-  friendDoc = await Friend.findOne({ userId: friendId });
-  friendDoc.friendList = _.filter(friendDoc.friendList, (friend) => {
-    return friend.id !== userId;
-  });
-  friendDoc.save();
+  const friendDoc = await Friend.findOne({ userId: friendId });
+  if (friendDoc) {
+    friendDoc.friendList = friendDoc.friendList.filter(
+      (friend) => friend.id !== userId
+    );
+    await friendDoc.save();
+  }
 };
-
 const searchFriends = async (userId, username) => {
   const friendDoc = await Friend.findOne({ userId });
   const friendList = friendDoc?.friendList || [];
