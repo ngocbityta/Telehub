@@ -39,17 +39,6 @@ const getFriendList = async (userId) => {
 const createFriendRequest = async (userId, friendId) => {
   const user = await User.findById(userId);
   const friend = await User.findById(friendId);
-  const alreadyRequested = await FriendRequest.find({
-    $or: [
-      { userId, friendId },
-      { userId: friendId, friendId: userId },
-    ],
-  });
-
-  if (!_.isEmpty(alreadyRequested)) {
-    throw new Error("Friend request already sent.");
-  }
-
   const newFriendRequest = await FriendRequest.create({
     userId,
     username: user.username,
