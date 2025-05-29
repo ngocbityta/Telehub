@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import goongjs from "@goongmaps/goong-js";
 import "@goongmaps/goong-js/dist/goong-js.css";
 
-const GOONG_MAP_KEY = "GdC8Piou6WPreAe2WIedy2IQeg1uV06g8GZ5Htth";
+const GOONG_MAP_KEY = "XP1k6rTp4DX90uWQNiL1rDgxa5XFQTYoQoIOdBXz";
 const GOONG_API_KEY = "GdC8Piou6WPreAe2WIedy2IQeg1uV06g8GZ5Htth";
 
 export default function Location() {
