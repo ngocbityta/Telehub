@@ -11,7 +11,6 @@ import Register from "./pages/auth/Register.js";
 import Login from "./pages/auth/Login.js";
 import Forgot from "./pages/auth/Forgot.js";
 import Friends from "./pages/home/Friends.js";
-import Location from "./pages/location/Location.js"
 
 import { UserDataProvider } from "./context/UserDataProvider.js"
 import useTheme from "./hooks/useTheme.js"

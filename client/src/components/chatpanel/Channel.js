@@ -43,10 +43,10 @@ const CustomChannel = (props) => {
   return (
     <div
   onClick={() => setActiveChannel?.(channel)}
-  className={`cursor-pointer w-full max-w-[500px] rounded-md transition-colors duration-200
+  className={`cursor-pointer w-full max-w-[500px]  transition-colors duration-200
     ${chatContext.channel === channel ? 'bg-green-100' : 'bg-white hover:bg-green-50'}
-    border border-gray-200 shadow-sm px-3 py-2`}
-    style={{borderRadius: '10px'}}
+     shadow-sm px-3 py-2 border-b-0`}
+    
 >
   <div className="flex items-center gap-3">
     {/* Avatar */}
