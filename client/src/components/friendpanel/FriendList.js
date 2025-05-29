@@ -19,7 +19,7 @@ const FriendList = () => {
         const fetchFriends = async () => {
             try {
                 setLoading(true);
-                const response = await axiosPrivate.post('/api/friend/getFriendList', {
+                const response = await axiosPrivate.post('/api/friend/get-friend-list', {
                     userId: auth._id
                 });
                 console.log(userId);
