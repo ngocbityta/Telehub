@@ -11,6 +11,7 @@ import Register from "./pages/auth/Register.js";
 import Login from "./pages/auth/Login.js";
 import Forgot from "./pages/auth/Forgot.js";
 import Friends from "./pages/home/Friends.js";
+import Location from "./pages/location/Location.js"
 
 import { UserDataProvider } from "./context/UserDataProvider.js"
 import useTheme from "./hooks/useTheme.js"
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/forgot" element={<Forgot />} />
         <Route path="/recover" element={<Recover />} />
         <Route path="/*" element={<NotFound />} />
+        <Route path="/location" element={<Location />} />
 
         {/* persist user login */}
         <Route element={<PersistLogin />}>
