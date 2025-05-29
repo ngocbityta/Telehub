@@ -30,7 +30,7 @@ const getFriendList = async (req, res) => {
 const createFriendRequest = async (req, res) => {
   try {
     await friendService.createFriendRequest(req.body.userId, req.body.friendId);
-    return res.status(200);
+    return res.sendStatus(200);
   } catch (error) {
     console.log(error);
     return res
@@ -42,7 +42,7 @@ const createFriendRequest = async (req, res) => {
 const responseFriendRequest = async (req, res) => {
   try {
     await friendService.responseFriendRequest(req.body.friendRequestId, req.body.type);
-    return res.status(200);
+    return res.sendStatus(200);
   } catch (error) {
     console.log(error);
     return res
@@ -66,7 +66,7 @@ const getFriendRequestList = async (req, res) => {
 const deleteFriend = async (req, res) => {
   try {
     await friendService.deleteFriend(req.body.userId, req.body.friendId);
-    return res.status(200);
+    return res.sendStatus(200);
   } catch (error) {
     console.log(error);
     return res

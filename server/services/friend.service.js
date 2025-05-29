@@ -38,15 +38,19 @@ const getFriendList = async (userId) => {
 const createFriendRequest = async (userId, friendId) => {
   const user = await User.findById(userId);
   const friend = await User.findById(friendId);
-  const newFriendRequest = await FriendRequest.create({
+  const body = {
     userId,
     username: user.username,
     userAvatar: user.image,
     friendId,
     friendName: friend.username,
     friendAvatar: friend.image,
-  });
-  newFriendRequest.save();
+  };
+  const existedFriendRequest = await FriendRequest.findOne(body);
+  if (!existedFriendRequest) {
+    const newFriendRequest = await FriendRequest.create(body);
+    newFriendRequest.save();
+  }
 };
 
 const responseFriendRequest = async (friendRequestId, type) => {
