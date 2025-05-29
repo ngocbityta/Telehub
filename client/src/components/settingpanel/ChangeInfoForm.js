@@ -130,6 +130,7 @@ const ChangeInfoForm = () => {
                   border-2 border-gray-300 duration-300 hover:border-cyan-600 focus:border-blue-700"
                   value={fullname}
                   onChange={(e) => setFullname(e.target.value)}
+                  style={{borderRadius: '10px'}}
                 />
               </Tippy>
             </div>
@@ -154,6 +155,8 @@ const ChangeInfoForm = () => {
                   border-2 border-gray-300 duration-300 hover:border-cyan-600 focus:border-blue-700"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  style={{borderRadius: '10px'}}
+
                 />
               </Tippy>
             </div>

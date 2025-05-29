@@ -46,12 +46,13 @@ const CustomChannel = (props) => {
   className={`cursor-pointer w-full max-w-[500px] rounded-md transition-colors duration-200
     ${chatContext.channel === channel ? 'bg-green-100' : 'bg-white hover:bg-green-50'}
     border border-gray-200 shadow-sm px-3 py-2`}
+    style={{borderRadius: '10px'}}
 >
   <div className="flex items-center gap-3">
     {/* Avatar */}
     <div className="relative flex-shrink-0">
       <img
-        className="w-10 h-10 rounded-md object-cover border border-green-400"
+        className="w-10 h-10 rounded-full object-cover border border-green-400"
         src={!isGroup ? otherMember?.user?.image : channel?.data?.image || `https://ui-avatars.com/api/?name=${channel?.data?.name || 'G'}`}
         alt={isGroup ? channel?.data?.name : otherMember?.user?.name}
       />

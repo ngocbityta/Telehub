@@ -12,7 +12,7 @@ import data from '@emoji-mart/data';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import useSocket from '../../hooks/useSocket';
 import useAuth from '../../hooks/useAuth';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 init({ data });
 
@@ -66,7 +66,7 @@ const SearchModal = ({ isOpen, onClose, onSearch, channelId }) => {
               backgroundColor: 'white',
               color: 'black',
               fontSize: '16px',
-              fontFamily: 'Arial, sans-serif',
+              fontFamily: 'Quicksand, sans-serif',
             }}
             onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
           />
@@ -423,18 +423,7 @@ const ChannelHeader = ({ channelData, members, memberIds, handleStartCall }) => 
   const chatOptions = () => {
     return (
       <div className="w-auto h-auto flex flex-col gap-0">
-        {/* Delete option */}
-        {
-          (!isGroup || (isGroup && channelData?.created_by?.id === client.userID)) && (
-            <div
-              onClick={() => actionConfirm({ action: 'Delete' })}
-              className="flex cursor-pointer space-x-2 text-red-500 text-base hover:bg-gray-200 font-medium text-center p-1"
-            >
-              <MdDeleteOutline size={24} />
-              <span className='select-none'>Delete conversation</span>
-            </div>
-          )
-        }
+        
         
         {/* Search option */}
         { 
@@ -475,6 +464,7 @@ const ChannelHeader = ({ channelData, members, memberIds, handleStartCall }) => 
           )
         }
 
+
         {
           (isGroup && channelData?.created_by?.id !== client.userID) && (
             <div
@@ -483,6 +473,18 @@ const ChannelHeader = ({ channelData, members, memberIds, handleStartCall }) => 
             >
               <CgLogOut size={24} />
               <span className='select-none'>Leave group</span>
+            </div>
+          )
+        }
+        {/* Delete option */}
+        {
+          (!isGroup || (isGroup && channelData?.created_by?.id === client.userID)) && (
+            <div
+              onClick={() => actionConfirm({ action: 'Delete' })}
+              className="flex cursor-pointer space-x-2 text-red-500 text-base hover:bg-gray-200 font-medium text-center p-1"
+            >
+              <MdDeleteOutline size={24} />
+              <span className='select-none'>Delete conversation</span>
             </div>
           )
         }
@@ -554,6 +556,9 @@ const MessageContainer = () => {
   const members = channel?.state?.members;
   const memberIds = Object.keys(members || []);
   const axiosPrivate = useAxiosPrivate();
+  const [aiResult, setAiResult] = useState(null);
+  const [isAiLoading, setIsAiLoading] = useState(false);
+  const messageInputRef = useRef(null);
 
   const handleStartCall = async (callType) => {
     const callId = await axiosPrivate.get(`/api/call?cid=${channel?.data?.cid}`);
@@ -573,13 +578,109 @@ const MessageContainer = () => {
     }
   };
 
+  const handleAiAssistant = async () => {
+    try {
+      setIsAiLoading(true);
+      // Lấy tin nhắn gần đây
+      const recentMessages = await axiosPrivate.get(`/api/chat/recent/${channel?.data?.cid}`);
+      
+      // Gửi tin nhắn đến AI để xử lý
+      const aiResponse = await axiosPrivate.post('/api/ai/reply', {
+        userName: auth.username,
+        messages: recentMessages.data.map(msg => ({
+          userName: msg.user.name,
+          text: msg.text
+        }))
+      });
+
+      setAiResult(aiResponse.data.result);
+    } catch (error) {
+      console.error('Error with AI assistant:', error);
+    } finally {
+      setIsAiLoading(false);
+    }
+  };
+
+  const handleAiResultClick = async () => {
+    if (aiResult) {
+      try {
+        // Loại bỏ ký tự \n khi copy
+        const cleanText = aiResult.replace(/\\n/g, ' ');
+        await navigator.clipboard.writeText(cleanText);
+        // Thay đổi style tạm thời để thông báo đã copy
+        const resultElement = document.querySelector('.ai-result-text');
+        if (resultElement) {
+          resultElement.classList.add('bg-green-50');
+          setTimeout(() => {
+            resultElement.classList.remove('bg-green-50');
+          }, 500);
+        }
+      } catch (err) {
+        console.error('Failed to copy text: ', err);
+      }
+    }
+  };
+
   return (
     <Channel EmojiPicker={EmojiPicker} emojiSearchIndex={SearchIndex} >
       <Window>
         <ChannelHeader channelData={channel?.data} members={members} memberIds={memberIds} handleStartCall={handleStartCall} />
         <MessageList closeReactionSelectorOnClick
           disableDateSeparator onlySenderCanEdit showUnreadNotificationAlways={false} />
-        <MessageInput focus audioRecordingEnabled />
+        <div ref={messageInputRef} className="relative">
+          <MessageInput focus audioRecordingEnabled />
+        </div>
+        <div style={{
+          backgroundColor: 'transparent', 
+          height: 'auto',
+          position: 'absolute',
+          bottom: '60px',
+          left: '0',
+          pointerEvents: 'none',
+          zIndex: 1
+        }} className="flex py-0.2 ml-4">
+          <div className="flex items-center gap-2">
+            <button 
+              className='bg-blue-500 text-white hover:bg-blue-600 transition-colors duration-200 flex items-center justify-center' 
+              style={{
+                width: '22px', 
+                height: '22px', 
+                borderRadius: '50%',
+                pointerEvents: 'auto'
+              }}
+              title="AI Assistant"
+              onClick={handleAiAssistant}
+            >
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="currentColor"
+                className="text-white"
+              >
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                <path d="M12 6c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+              </svg>
+            </button>
+            {isAiLoading && (
+              <div className="bg-white rounded-lg p-2 shadow-md pointer-events-auto">
+                <div className="animate-pulse flex space-x-2">
+                  <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
+                  <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
+                  <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
+                </div>
+              </div>
+            )}
+            {aiResult && !isAiLoading && (
+              <div 
+                className="bg-white rounded-lg p-2 shadow-md max-w-xs pointer-events-auto cursor-pointer hover:bg-gray-50 transition-colors duration-200"
+                onClick={handleAiResultClick}
+              >
+                <p className="text-sm text-gray-700 ai-result-text">{aiResult}</p>
+              </div>
+            )}
+          </div>
+        </div>
       </Window>
       <Thread />
     </Channel>

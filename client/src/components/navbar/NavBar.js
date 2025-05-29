@@ -43,7 +43,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-[#e6f4ea] w-[80px] py-6 rounded-2xl shadow-sm">
+    <div className="flex flex-col items-center bg-[#e6f4ea] w-[80px] py-6  shadow-sm">
 
       <div className="flex flex-col w-full h-full">
         <div>
