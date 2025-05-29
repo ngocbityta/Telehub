@@ -1,5 +1,4 @@
 import Friend from "../models/friend.model.js";
-import _ from "lodash";
 import FriendRequest from "../models/friendRequest.model.js";
 import User from "../models/user.model.js";
 
