@@ -158,10 +158,11 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
                     {groupAvatar && (
                         <img src={groupAvatar.preview} alt="" className="w-16 h-16 rounded-full object-cover" />
                     )}
-                    <div className="pl-5">
+                    <div className="pl-5" style={{borderRadius: "10px"}}>
                         <label
                             htmlFor="inputAvatar"
-                            className="cursor-pointer rounded border mr-[40px] px-[12px] py-[6px] bg-white text-black hover:border-gray-500">
+                            className="cursor-pointer rounded border mr-[40px] px-[12px] py-[6px] bg-white text-black hover:border-gray-500" 
+                            style={{borderRadius: "10px"}}>
                             Group Image
                         </label>
                         <input
@@ -185,6 +186,7 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
                         className="outline-0 absolute top-2 z-20 rounded-sm py-1.5 pl-3 w-full bg-[var(--page-bg)]
                          text-[var(--login-input-text-color)] border-2 border-gray-300 duration-300 hover:border-cyan-600 focus:border-blue-700"
                         placeholder="Enter Group Name"
+                        style={{borderRadius: "10px"}}
                         onChange={(e) => setGroupName(e.target.value)} />
                 </div>
 
@@ -198,12 +200,14 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
                         className="outline-0 absolute top-2 z-20 rounded-sm py-1.5 pl-3 w-[340px] bg-[var(--page-bg)]
                          text-[var(--login-input-text-color)] border-2 border-gray-300 duration-300 hover:border-cyan-600 focus:border-blue-700"
                         placeholder="Enter Username"
+                        style={{borderRadius: "10px"}}
                         onChange={(e) => setUserAdd(e.target.value)} />
                     <button
                         type="submit"
                         onClick={handleAdd}
                         disabled={!userAdd}
-                        className={`absolute right-0 w-16 h-10 mt-2 ${userAdd === '' ? 'bg-gray-500 hover:bg-gray-600 hover:cursor-not-allowed' : '  bg-green-700 hover:bg-blue-600'} duration-300 text-white font-semibold rounded-md  `}>
+                        className={`absolute right-0 w-16 h-10 mt-2 ${userAdd === '' ? 'bg-gray-500 hover:bg-gray-600 hover:cursor-not-allowed' : '  bg-green-700 hover:bg-blue-600'} duration-300 text-white font-semibold rounded-md  `}
+                        style={{borderRadius: "10px"}}>
                         Add
                     </button>
                 </div>
@@ -243,8 +247,8 @@ function GroupModal({ toggleModal, status, editGroup, onCreateGroup, onEditGroup
                         }}
                         disabled={loading}
                         className={` h-10 w-[408px] ml-4 ${(error === false) && (list.length === 0) ? 'mt-12' : 'mt-6'} 
-                         text-white font-semibold bg-green-700 hover:bg-blue-600 flex justify-center items-center`}
-                        style={{borderRadius: "5px"}}>
+                         text-white font-semibold bg-green-700 hover:bg-green-600 flex justify-center items-center`}
+                        style={{borderRadius: "10px"}}>
                         {
                             loading ? <img src="/loading.png" className="w-9 h-9" alt=""></img> :
                                 status === "Edit" ? "Update" : "Create Group"

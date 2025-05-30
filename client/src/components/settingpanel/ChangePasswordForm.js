@@ -145,6 +145,7 @@ const ChangePasswordForm = () => {
                 className="w-full h-10 bg-blue-500 text-white font-semibold rounded-md 
                 hover:bg-blue-600 duration-300 flex justify-center items-center
                  disabled:bg-slate-500 disabled:hover:cursor-not-allowed"
+                style={{borderRadius: "10px"}}
               >
                 {
                   loading ? <img src="/loading.png" className="w-9 h-9" alt=""></img> :

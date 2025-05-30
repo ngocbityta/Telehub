@@ -5,6 +5,7 @@ import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import useTheme from "../../hooks/useTheme";
 
 import useLogout from "../../hooks/useLogout";
 
@@ -19,6 +20,7 @@ const navItems = [
 const NavBar = () => {
   const location = useLocation();
   const logout = useLogout();
+  const { theme } = useTheme();
 
   const isActive = (path) => location.pathname === path;
 
@@ -43,7 +45,8 @@ const NavBar = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-[#e6f4ea] w-[80px] py-6  shadow-sm">
+    <div className={`flex flex-col items-center w-[80px] py-6 shadow-sm ${theme === 'dark' ? 'bg-[var(--navbar-bg)]' : 'bg-[#e6f4ea]'}`} style={{paddingTop: "15px"}}>
+      <img src="/icon.png" alt="logo" className="w-10 h-10" style={{marginBottom: "15px"}}/>
 
       <div className="flex flex-col w-full h-full">
         <div>
@@ -55,9 +58,11 @@ const NavBar = () => {
                   ${
                     isActive(item.path)
                       ? 'bg-[#3a7d3a] text-white'
-                      : 'text-[#2c6e2c] hover:bg-[#b7deb7]'
+                      : theme === 'dark' 
+                        ? 'text-[var(--tab-icon-color)] hover:bg-[var(--tab-hover-bg)]'
+                        : 'text-[#2c6e2c] hover:bg-[#b7deb7]'
                   }
-                  border-b border-[#a7d7a7]
+                  ${theme === 'dark' ? 'border-b border-[var(--channel-border-color)]' : 'border-b border-[#a7d7a7]'}
                   `}
                 >
                   <item.icon className="w-5 h-5" />
@@ -71,7 +76,11 @@ const NavBar = () => {
         <Tippy content="Logout" placement="right">
           <button
             onClick={logoutConfirm}
-            className="w-10 h-10 mx-auto flex items-center justify-center rounded-xl text-[#2c6e2c] hover:bg-red-400 hover:text-white transition-colors duration-300 border-b border-[#a7d7a7] mt-auto"
+            className={`w-10 h-10 mx-auto flex items-center justify-center rounded-xl hover:bg-red-400 hover:text-white transition-colors duration-300 mt-auto
+            ${theme === 'dark' 
+              ? 'text-[var(--tab-icon-color)] border-b border-[var(--channel-border-color)]'
+              : 'text-[#2c6e2c] border-b border-[#a7d7a7]'
+            }`}
           >
             <BsPower className="w-5 h-5" />
           </button>
