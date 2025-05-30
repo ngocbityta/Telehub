@@ -88,4 +88,16 @@ const searchFriends = async (req, res) => {
   }
 };
 
-export default { editFriendList, getFriendList, searchFriends, createFriendRequest, responseFriendRequest, getFriendRequestList, deleteFriend };
+const updateLocationWithFriends = async (req, res) => {
+  try {
+    await friendService.updateLocationWithFriends(req.body.userId, req.body.friendIds, req.body.longitude, req.body.latitude);
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: error.message || "Internal Server Error" });
+  }
+};
+
+export default { editFriendList, getFriendList, searchFriends, createFriendRequest, responseFriendRequest, getFriendRequestList, deleteFriend, updateLocationWithFriends };

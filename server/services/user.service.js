@@ -98,15 +98,15 @@ const getUserById = async (userId) => {
   throw new Error("User not found");
 };
 
-const getUser = async (request) => {
+const getUsers = async (request) => {
   const filter = {
-    username: request.username,
+    username: { $in: request.usernames },
   };
-  const user = await User.find(filter);
-  if (user) {
-    return user.toJSON();
+  const users = await User.find(filter);
+  if (users) {
+    return users;
   }
   throw new Error("User not found");
 };
 
-export default { editUserInfo, changePassword, getUserById, getUser };
+export default { editUserInfo, changePassword, getUserById, getUsers };

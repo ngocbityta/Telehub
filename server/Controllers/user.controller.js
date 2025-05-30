@@ -46,9 +46,9 @@ const getUserById = async (req, res) => {
   }
 };
 
-const getUser = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
-    const user = await userService.getUser(req.body);
+    const user = await userService.getUsers(req.body);
     return res.status(200).json(user);
   } catch (error) {
     console.log(error);
@@ -58,4 +58,4 @@ const getUser = async (req, res) => {
   }
 };
 
-export default { handleEditInfo, handleChangePassword, getUserById, getUser };
+export default { handleEditInfo, handleChangePassword, getUserById, getUsers };

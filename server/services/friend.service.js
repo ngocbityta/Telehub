@@ -82,6 +82,11 @@ const getFriendRequestList = async (userId) => {
   return friendRequestList;
 };
 
+const getFriendResponseList = async (userId) => {
+  const friendResponseList = await FriendRequest.find({ friendId: userId });
+  return friendResponseList;
+};
+
 const deleteFriend = async (userId, friendId) => {
   const userDoc = await Friend.findOne({ userId });
   if (userDoc) {
@@ -99,14 +104,18 @@ const deleteFriend = async (userId, friendId) => {
     await friendDoc.save();
   }
 };
+
 const searchFriends = async (userId, username) => {
   const friendDoc = await Friend.findOne({ userId });
   const friendList = friendDoc?.friendList || [];
 
-  const friendRequestList = await getFriendRequestList(userId); // list các yêu cầu kết bạn do userId gửi
+  const friendRequestList = await getFriendRequestList(userId);
+  const friendResponseList = await getFriendResponseList(userId);
 
+  let filter;
+  if (username) filter.username = { $regex: username, $options: "i" };
   const users = await User.find({
-    username: { $regex: username, $options: "i" },
+    filter,
     _id: { $ne: userId },
   });
 
@@ -120,8 +129,13 @@ const searchFriends = async (userId, username) => {
       (req) => req.friendId.toString() === user._id.toString()
     );
 
+    const isResponse = friendResponseList.some(
+      (req) => req.userId === user._id.toString()
+    );
+
     if (isFriend) relationship = "friend";
     else if (isRequested) relationship = "friend request";
+    else if (isResponse) relationship = "friend response";
 
     return {
       id: user._id,
@@ -132,6 +146,28 @@ const searchFriends = async (userId, username) => {
   });
 };
 
+const updateLocationWithFriends = async (
+  userId,
+  friendIds,
+  longitude,
+  latitude
+) => {
+  for (const friendId of friendIds) {
+    await Friend.findOneAndUpdate(
+      {
+        userId: friendId,
+        "friendList.id": userId,
+      },
+      {
+        $set: {
+          "friendList.$.longitude": longitude,
+          "friendList.$.latitude": latitude,
+        },
+      }
+    );
+  }
+};
+
 export default {
   editFriendList,
   getFriendList,
@@ -140,4 +176,5 @@ export default {
   getFriendRequestList,
   deleteFriend,
   searchFriends,
+  updateLocationWithFriends,
 };

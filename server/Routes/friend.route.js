@@ -10,5 +10,6 @@ router.post("/response-friend-request", friendController.responseFriendRequest);
 router.post("/get-friend-request-list", friendController.getFriendRequestList);
 router.post("/delete-friend", friendController.deleteFriend);
 router.post("/search-friends", friendController.searchFriends);
+router.post("/update-location-with-friends", friendController.updateLocationWithFriends);
 
 export default router;
