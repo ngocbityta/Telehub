@@ -2,11 +2,13 @@ import { useEffect, useRef } from "react";
 import goongjs from "@goongmaps/goong-js";
 import "@goongmaps/goong-js/dist/goong-js.css";
 import axios from "axios";
+import useAuth from "../../hooks/useAuth.js";
 
 const GOONG_MAP_KEY = "XP1k6rTp4DX90uWQNiL1rDgxa5XFQTYoQoIOdBXz";
 
-export default function Location() {
+const Location = () => {
   const mapContainerRef = useRef(null);
+  const { auth } = useAuth();
 
   useEffect(() => {
     if (!GOONG_MAP_KEY) {
@@ -27,7 +29,6 @@ export default function Location() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-
         map.setCenter([longitude, latitude]);
 
         new goongjs.Marker({ color: "blue" }) // marker của chính mình
@@ -45,13 +46,14 @@ export default function Location() {
 
     // Gọi API lấy danh sách bạn bè và thêm vào bản đồ
     axios
-      .get("/api/friend/get-friend-list")
+      .post("/api/friend/get-friend-list", {
+        userId: auth.userId,
+      })
       .then((res) => {
-        const friends = res.data; // [{ username, avatar, latitude, longitude }]
+        const friends = res.data;
 
         friends.forEach((friend) => {
           const { username, avatar, latitude, longitude } = friend;
-
           new goongjs.Marker()
             .setLngLat([longitude, latitude])
             .setPopup(
@@ -77,4 +79,6 @@ export default function Location() {
       <div ref={mapContainerRef} className="w-full h-full" />
     </div>
   );
-}
+};
+
+export default Location;
