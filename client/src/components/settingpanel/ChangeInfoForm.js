@@ -65,13 +65,13 @@ const ChangeInfoForm = () => {
 
 
   return (
-    <div className="h-auto w-auto">
-      <div className="h-full w-full flex items-center justify-center">
-        <div className="h-full w-full border-gray-300 shadow-xl flex flex-col gap-2">
-          <div className="mt-2 flex flex-col gap-8">
+    <div className="h-auto w-auto" >
+      <div className="h-full w-full flex items-center justify-center" >
+        <div className="h-full w-full border-gray-300 shadow-xl flex flex-col gap-2" >
+          <div className="mt-2 flex flex-col gap-8" >
             {/* Avatar */}
             <div className="mx-5 relative flex items-center bg-[var(--file-input-container)] p-2 gap-2"
-                  style={{borderRadius: "5px"}}>
+                  style={{borderRadius: "10px"}}>
               {/* Uploaded data */}
               {avatar ? (
                 <img
@@ -92,7 +92,9 @@ const ChangeInfoForm = () => {
                 htmlFor="inputAvatar"
                 className="cursor-pointer rounded border mr-[40px] px-[12px] py-[6px] 
                 bg-[var(--file-input-btn)]
-                text-black hover:border-gray-500">
+                text-black hover:border-gray-500"
+                style={{borderRadius: "10px"}}
+              >
                 Upload Avatar
               </label>
               <input
@@ -174,6 +176,7 @@ const ChangeInfoForm = () => {
                 className="w-full h-10 bg-blue-500 text-white font-semibold rounded-md
                  hover:bg-blue-600 duration-300 flex justify-center items-center 
                  disabled:bg-slate-500 disabled:hover:cursor-not-allowed"
+                style={{borderRadius: "10px",}}
               >
                 {
                   loading ? <img src="/loading.png" className="w-9 h-9" alt=""></img> :

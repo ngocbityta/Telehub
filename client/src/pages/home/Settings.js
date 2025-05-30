@@ -34,11 +34,12 @@ const Settings = () => {
       </h1>
       <div className="divider mt-0"></div>
       <div className="flex flex-col gap-4">
-        <div className="bg-[var(--settings-box-bg)] rounded h-auto shadow mx-3">
+        <div className="bg-[var(--settings-box-bg)] rounded h-auto shadow mx-3" style={{borderRadius: "10px"}}>
           <div
             onClick={toggleChangeInfo}
             className="p-5 rounded flex items-center justify-between font-semibold text-md text-[var(--login-text-color)]
             bg-[var(--settings-box-bg)]"
+            style={{borderRadius: "10px"}}
           >
             Change Information
             {showChangeInfo ? (
@@ -53,11 +54,12 @@ const Settings = () => {
           </div>
           <div>{showChangeInfo && <ChangeInfoForm />}</div>
         </div>
-        <div className="bg-[var(--settings-box-bg)] rounded h-auto shadow mx-3">
+        <div className="bg-[var(--settings-box-bg)] rounded h-auto shadow mx-3" style={{borderRadius: "10px"}}>
           <div
             onClick={toggleChangePassword}
             className="p-5 rounded flex items-center justify-between  font-semibold text-md text-[var(--login-text-color)]
             bg-[var(--settings-box-bg)]"
+            style={{borderRadius: "10px"}}
           >
             Change Password
             {showChangePassword ? (
@@ -72,11 +74,12 @@ const Settings = () => {
           </div>
           {showChangePassword && <ChangePasswordForm />}
         </div>
-        <div className="bg-[var(--settings-box-bg)] rounded h-auto shadow mx-3">
+        <div className="bg-[var(--settings-box-bg)] rounded h-auto shadow mx-3" style={{borderRadius: "10px"}}>
           <div
             onClick={toggleSystemSettings}
             className="p-5 rounded flex items-center justify-between  font-semibold text-md text-[var(--login-text-color)]
             bg-[var(--settings-box-bg)]"
+            style={{borderRadius: "10px"}}
           >
             System settings
             {showSystemSettings ? (
