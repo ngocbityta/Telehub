@@ -13,7 +13,7 @@ const FriendRequestList = () => {
     const fetchRequests = async () => {
         try {
             setLoading(true);
-            const response = await axiosPrivate.post('/api/friend/get-friend-request-list', {
+            const response = await axiosPrivate.post('/api/friend/get-friend-response-list', {
                 userId: auth.userId
             });
             

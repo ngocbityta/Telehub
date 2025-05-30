@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { BsChat, BsPerson, BsPeople, BsGear, BsPower, BsPersonCircle, BsPersonAdd} from "react-icons/bs";
+import { BsChat, BsPeople, BsGear, BsPower, BsPersonCircle, BsPersonAdd, BsMap} from "react-icons/bs";
 import Tippy from "@tippyjs/react";
 import 'tippy.js/dist/tippy.css';
 import { confirmAlert } from 'react-confirm-alert';
@@ -14,7 +14,8 @@ const navItems = [
   { path: "/profile", title: "Profile", icon: BsPersonCircle },
   { path: "/groups", title: "Groups", icon: BsPeople},
   { path: "/settings", title: "Settings", icon: BsGear },
-  { path: "/friends", title: "Friends", icon: BsPersonAdd }
+  { path: "/friends", title: "Friends", icon: BsPersonAdd },
+  {path: "/location", title: "Location", icon: BsMap}
 ];
 
 const NavBar = () => {

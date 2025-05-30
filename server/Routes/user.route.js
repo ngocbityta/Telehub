@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import userController from "../controllers/user.controller.js";
+import userController from "../Controllers/user.controller.js";
 
 const router = Router();
 const storage = multer.memoryStorage();

@@ -7,7 +7,6 @@ import {
   useChatContext,
 } from "stream-chat-react";
 import { IoIosLocate } from "react-icons/io";
-import { MdSmartToy } from "react-icons/md";
 import { EmojiPicker } from "stream-chat-react/emojis";
 import { init, SearchIndex } from "emoji-mart";
 import data from "@emoji-mart/data";
@@ -17,6 +16,8 @@ import useAuth from "../../hooks/useAuth";
 import { useState, useRef } from "react";
 import ChannelHeader from "./components/ChannelHeader";
 import _ from "lodash";
+import { MdSmartToy } from "react-icons/md";
+import GeminiIcon from "../../public/GeminiIcon";
 
 init({ data });
 
@@ -185,28 +186,28 @@ const MessageContainer = () => {
             <button
               className="bg-green-700 text-white hover:bg-green-500 transition-colors duration-200 flex items-center justify-center"
               style={{
-                width: "22px",
-                height: "22px",
+                width: "30px",
+                height: "30px",
                 borderRadius: "50%",
                 pointerEvents: "auto",
               }}
               title="Send Location"
               onClick={handleSendLocation}
             >
-              <IoIosLocate size={16} />
+              <IoIosLocate size={30} />
             </button>
             <button
               className="bg-green-700 text-white hover:bg-green-500 transition-colors duration-200 flex items-center justify-center"
               style={{
-                width: "22px",
-                height: "22px",
+                width: "30px",
+                height: "30px",
                 borderRadius: "50%",
                 pointerEvents: "auto",
               }}
               title="AI Assistant"
               onClick={handleAiAssistant}
             >
-              <MdSmartToy size={16} />
+              <GeminiIcon size={28} />
             </button>
             {isAiLoading && (
               <div className="bg-white rounded-lg p-2 shadow-md pointer-events-auto">
