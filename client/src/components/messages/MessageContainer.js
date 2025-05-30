@@ -107,7 +107,12 @@ const MessageContainer = () => {
         });
 
         const { latitude, longitude } = position.coords;
-        const locationMessage = `📍 My current location: https://www.google.com/maps?q=${latitude},${longitude}`;
+        const addressData = await axiosPrivate.post(`api/goong/reverse-geocoding`, {
+          lat: latitude,
+          lng: longitude,
+        })
+        const address = addressData.data.address;
+        const locationMessage = `📍 My current location: [${address}](https://www.google.com/maps?q=${latitude},${longitude})`;
 
         // Send the location message
         await channel.sendMessage({
