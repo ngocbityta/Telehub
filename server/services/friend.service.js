@@ -112,12 +112,10 @@ const searchFriends = async (userId, username) => {
   const friendRequestList = await getFriendRequestList(userId);
   const friendResponseList = await getFriendResponseList(userId);
 
-  let filter;
+  let filter = {};
   if (username) filter.username = { $regex: username, $options: "i" };
-  const users = await User.find({
-    filter,
-    _id: { $ne: userId },
-  });
+  filter._id = { $ne: userId };
+  const users = await User.find(filter);
 
   return users.map((user) => {
     let relationship = "stranger";
@@ -125,23 +123,25 @@ const searchFriends = async (userId, username) => {
     const isFriend = friendList.some(
       (friend) => friend.id.toString() === user._id.toString()
     );
-    const isRequested = friendRequestList.some(
-      (req) => req.friendId.toString() === user._id.toString()
+
+    const request = friendRequestList.find(
+      (req) => req.friendId === user._id.toString()
     );
 
-    const isResponse = friendResponseList.some(
-      (req) => req.userId === user._id.toString()
+    const response = friendResponseList.find(
+      (res) => res.userId === user._id.toString()
     );
 
     if (isFriend) relationship = "friend";
-    else if (isRequested) relationship = "friend request";
-    else if (isResponse) relationship = "friend response";
+    else if (request) relationship = "friend request";
+    else if (response) relationship = "friend response";
 
     return {
       id: user._id,
       username: user.username,
       avatar: user.image,
       relationship,
+      friendRequestId: request ? request._id.toString() : response ? response._id.toString() : null,
     };
   });
 };
