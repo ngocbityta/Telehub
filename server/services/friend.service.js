@@ -141,7 +141,11 @@ const searchFriends = async (userId, username) => {
       username: user.username,
       avatar: user.image,
       relationship,
-      friendRequestId: request ? request._id.toString() : response ? response._id.toString() : null,
+      friendRequestId: request
+        ? request._id.toString()
+        : response
+        ? response._id.toString()
+        : null,
     };
   });
 };
@@ -177,4 +181,5 @@ export default {
   deleteFriend,
   searchFriends,
   updateLocationWithFriends,
+  getFriendResponseList,
 };

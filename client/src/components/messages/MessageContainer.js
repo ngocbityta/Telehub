@@ -16,7 +16,7 @@ import useSocket from "../../hooks/useSocket";
 import useAuth from "../../hooks/useAuth";
 import { useState, useRef } from "react";
 import ChannelHeader from "./components/ChannelHeader";
-import _, { add } from "lodash";
+import _ from "lodash";
 
 init({ data });
 

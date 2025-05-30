@@ -41,7 +41,10 @@ const createFriendRequest = async (req, res) => {
 
 const responseFriendRequest = async (req, res) => {
   try {
-    await friendService.responseFriendRequest(req.body.friendRequestId, req.body.type);
+    await friendService.responseFriendRequest(
+      req.body.friendRequestId,
+      req.body.type
+    );
     return res.sendStatus(200);
   } catch (error) {
     console.log(error);
@@ -63,6 +66,18 @@ const getFriendRequestList = async (req, res) => {
   }
 };
 
+const getFriendResponseList = async (req, res) => {
+  try {
+    const result = await friendService.getFriendResponseList(req.body.userId);
+    return res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(500)
+      .json({ message: error.message || "Internal Server Error" });
+  }
+};
+
 const deleteFriend = async (req, res) => {
   try {
     await friendService.deleteFriend(req.body.userId, req.body.friendId);
@@ -75,10 +90,12 @@ const deleteFriend = async (req, res) => {
   }
 };
 
-
 const searchFriends = async (req, res) => {
   try {
-    const result = await friendService.searchFriends(req.body.userId, req.body.username);
+    const result = await friendService.searchFriends(
+      req.body.userId,
+      req.body.username
+    );
     return res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -90,7 +107,12 @@ const searchFriends = async (req, res) => {
 
 const updateLocationWithFriends = async (req, res) => {
   try {
-    await friendService.updateLocationWithFriends(req.body.userId, req.body.friendIds, req.body.longitude, req.body.latitude);
+    await friendService.updateLocationWithFriends(
+      req.body.userId,
+      req.body.friendIds,
+      req.body.longitude,
+      req.body.latitude
+    );
     return res.sendStatus(200);
   } catch (error) {
     console.log(error);
@@ -100,4 +122,14 @@ const updateLocationWithFriends = async (req, res) => {
   }
 };
 
-export default { editFriendList, getFriendList, searchFriends, createFriendRequest, responseFriendRequest, getFriendRequestList, deleteFriend, updateLocationWithFriends };
+export default {
+  editFriendList,
+  getFriendList,
+  searchFriends,
+  createFriendRequest,
+  responseFriendRequest,
+  getFriendRequestList,
+  deleteFriend,
+  updateLocationWithFriends,
+  getFriendResponseList,
+};
