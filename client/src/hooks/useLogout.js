@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from './useAxios';
 import useAuth from "./useAuth";
 import useSocket from "./useSocket";
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import goongjs from "@goongmaps/goong-js";
 import "@goongmaps/goong-js/dist/goong-js.css";
-import axios from "axios";
+import axios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth.js";
 
 const GOONG_MAP_KEY = "XP1k6rTp4DX90uWQNiL1rDgxa5XFQTYoQoIOdBXz";

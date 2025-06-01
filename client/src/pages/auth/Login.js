@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import useAuth from "../../hooks/useAuth";
 import useTheme from "../../hooks/useTheme";
-import axios from "axios";
+import axios from "../../hooks/useAxios";
 
 function Login() {
   const [identifier, setIdentifier] = useState("");

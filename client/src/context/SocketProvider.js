@@ -11,7 +11,7 @@ export const SocketProvider = ({ children }) => {
 
     useEffect(() => {
         if (auth?.username) {
-            const newSocket = io("http://52.65.182.50:8000", {
+            const newSocket = io("https://ec2-52-65-182-50.ap-southeast-2.compute.amazonaws.com", {
                 query: {
                     username: auth.username,
                 },
