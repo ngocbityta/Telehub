@@ -11,9 +11,9 @@ const getGeminiResponseFromMessages = async (username, messages) => {
   }).join("\n");
 
   const contents =
-    `You are a helpful assistant in a multi-person chat. I am ${username} in this conversation. ` +
-    `Please reply as a participant based on the context. Do not include personal opinions or information. ` +
-    `Keep the response concise and focused. Here are the messages:\n\n` +
+    `Bạn là một trợ lý hữu ích trong một cuộc trò chuyện nhóm nhiều người, hoặc cuộc đối thoại giữa hai người. Tôi là ${username} trong cuộc hội thoại này. ` +
+    `Vui lòng trả lời như một người tham gia dựa trên ngữ cảnh hiện tại. Không đưa ra ý kiến cá nhân hoặc thông tin riêng tư. ` +
+    `Hãy đưa câu trả lời một cách tự nhiên, sáng tạo. Dưới đây là các tin nhắn:\n\n` +
     messagesInString;
 
   try {
