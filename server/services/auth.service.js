@@ -115,7 +115,7 @@ const forgetPassword = async (email) => {
     process.env.ACCESS_TOKEN_SECRET,
     { expiresIn: "1h" }
   );
-  const url = `https://telehub.id.vn/recover?token=${token}`;
+  const url = `https://telehub-b6416.web.app/recover?token=${token}`;
 
   await gmailService.sendRecoverEmail(email, user.username, url);
 };
