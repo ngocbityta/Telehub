@@ -12,10 +12,11 @@ import { app, server } from "./socket.js";
 app.use(
   cors({
     origin: [
-      "https://telehub-b6416.web.app",
-      "https://telehub.id.vn"
-    ],
-    credentials: true,
+	"https://telehub.id.vn",
+	"https://telehub-b6416.web.app",
+	"http://localhost:3000"
+	],
+    credentials: true,  
   })
 );
 

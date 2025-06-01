@@ -8,8 +8,8 @@ const handleLogin = async (req, res) => {
 
   res.cookie("jwt", result.refreshToken, {
     httpOnly: true,
-    sameSite: "Strict",
     secure: true,
+    sameSite: 'none',
     maxAge: 86400000,
   });
 
@@ -36,7 +36,7 @@ const handleRegister = async (req, res) => {
 
   res.cookie("jwt", result.refreshToken, {
     httpOnly: true,
-    sameSite: "Strict",
+    sameSite: 'none',
     secure: true,
     maxAge: 86400000,
   });
@@ -54,7 +54,7 @@ const handleRegister = async (req, res) => {
 const handleLogout = async (req, res) => {
   const token = req.cookies?.jwt;
   if (token) await authService.logoutUser(token);
-  res.clearCookie("jwt", { httpOnly: true, sameSite: "Strict", secure: true });
+  res.clearCookie("jwt", { httpOnly: true, sameSite: 'none', secure: true });
   res.sendStatus(204);
 };
 
@@ -118,7 +118,7 @@ const handleGoogleLogin = async (req, res) => {
 
   res.cookie("jwt", result.refreshToken, {
     httpOnly: true,
-    sameSite: "Strict",
+    sameSite: 'none',
     secure: true,
     maxAge: 86400000,
   });
