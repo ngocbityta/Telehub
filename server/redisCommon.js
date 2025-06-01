@@ -3,7 +3,6 @@ let client = null;
 
 let connected = false;
 const _setupRedis = async () => {
-  console.log(`connect to redis://localhost:8000/6379...`);
   client = redis.createClient({
     url: `redis://localhost:8000/6379`,
     socket: {
