@@ -69,8 +69,7 @@ const FriendList = () => {
             }
             
             // Chuyển đến kênh chat
-            await setActiveChannel(channel);
-            navigate('/');
+            setActiveChannel(channel);
         } catch (err) {
             console.error("Error handling chat channel:", err);
             setError("Không thể mở kênh chat. Vui lòng thử lại.");
@@ -78,8 +77,10 @@ const FriendList = () => {
     };
 
     const handleCall = (friendId) => {
-        // TODO: Implement call functionality
-        console.log('Call friend:', friendId);
+        // Generate a unique call ID using both users' IDs
+        const callId = [auth.userId, friendId].sort().join('-');
+        // Navigate to the Call component with the callId
+        navigate(`/call/audio/${callId}`);
     };
 
     useEffect(() => {

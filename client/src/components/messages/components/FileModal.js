@@ -23,8 +23,23 @@ const FileModal = ({ isOpen, onClose, channelId }) => {
   useEffect(() => {
     if (isOpen) {
       fetchFiles();
+      // Push a new state when opening modal
+      window.history.pushState({ modal: 'file' }, '');
     }
   }, [isOpen, channelId]);
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (isOpen) {
+        onClose();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isOpen, onClose]);
 
   const getFileIcon = (fileType) => {
     // Add more file types as needed

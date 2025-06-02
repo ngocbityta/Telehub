@@ -24,8 +24,33 @@ const MediaModal = ({ isOpen, onClose, channelId }) => {
   useEffect(() => {
     if (isOpen) {
       fetchMedia();
+      // Push a new state when opening modal
+      window.history.pushState({ modal: 'media' }, '');
     }
   }, [isOpen, channelId]);
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (isOpen) {
+        onClose();
+      }
+      if (selectedMedia) {
+        setSelectedMedia(null);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isOpen, selectedMedia, onClose]);
+
+  useEffect(() => {
+    if (selectedMedia) {
+      // Push a new state when opening media preview
+      window.history.pushState({ mediaPreview: true }, '');
+    }
+  }, [selectedMedia]);
 
   const renderMediaPreview = (media) => {
     if (media.type === 'image') {
@@ -79,6 +104,11 @@ const MediaModal = ({ isOpen, onClose, channelId }) => {
     return null;
   };
 
+  const handleMediaClick = (media) => {
+    setSelectedMedia(media);
+    window.history.pushState({ mediaPreview: true }, '');
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -102,7 +132,7 @@ const MediaModal = ({ isOpen, onClose, channelId }) => {
                 <div
                   key={index}
                   className="relative aspect-square cursor-pointer hover:opacity-90 w-32 h-32 border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200"
-                  onClick={() => setSelectedMedia(media)}
+                  onClick={() => handleMediaClick(media)}
                 >
                   {renderMediaPreview(media)}
                 </div>
@@ -120,7 +150,10 @@ const MediaModal = ({ isOpen, onClose, channelId }) => {
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
             <div className="relative max-w-4xl max-h-[90vh]">
               <button
-                onClick={() => setSelectedMedia(null)}
+                onClick={() => {
+                  setSelectedMedia(null);
+                  window.history.back();
+                }}
                 className="absolute top-4 right-4 text-white hover:text-gray-300 z-10"
               >
                 ✕

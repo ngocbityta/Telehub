@@ -115,7 +115,7 @@ const MessageContainer = () => {
         const address = addressData.data.address;
         const locationMessage = `📍 My current location: [${address}](https://www.google.com/maps?q=${latitude},${longitude})`;
 
-        // Send the location message
+        // Send the location message as text only
         await channel.sendMessage({
           text: locationMessage,
           user: { id: auth.userId },
@@ -132,8 +132,6 @@ const MessageContainer = () => {
         const chatMemberIds = _.map(chatMemberData.data, (member) => {
           return member._id.toString();
         });
-
-        console.log(chatMemberIds);
 
         await axiosPrivate.post(`api/friend/update-location-with-friends`, {
           userId: auth.userId,
