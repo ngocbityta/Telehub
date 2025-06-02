@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 
 const SearchModal = ({ isOpen, onClose, onSearch, channelId }) => {
@@ -22,6 +22,26 @@ const SearchModal = ({ isOpen, onClose, onSearch, channelId }) => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    if (isOpen) {
+      // Push a new state when opening modal
+      window.history.pushState({ modal: 'search' }, '');
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (isOpen) {
+        onClose();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
